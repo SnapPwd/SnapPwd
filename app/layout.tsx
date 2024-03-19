@@ -5,6 +5,7 @@ import "./globals.css";
 import Navbar from "@/components/ui/Navbar";
 import Footer from "@/components/ui/Footer";
 import cn from "classnames";
+import { Analytics } from "@vercel/analytics/react";
 
 export const metadata: Metadata = {
   title: "SnapPwd - Securely share passwords and secrets",
@@ -25,6 +26,7 @@ export default function RootLayout({
           {children}
         </main>
         <Footer /> {/* 3.5rem for desktop, 5rem for mobile */}
+        <Analytics />
       </body>
     </html>
   );
