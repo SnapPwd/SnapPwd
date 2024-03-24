@@ -4,33 +4,39 @@ import { kv } from "@vercel/kv";
 import { v4 as uuidv4 } from "uuid";
 import AES from "crypto-js/aes";
 import Utf8 from "crypto-js/enc-utf8";
+import CryptoJS from "crypto-js";
 import { revalidatePath } from "next/cache";
 
 export async function encryptAndStoreSecret(
   secret: string,
   expiration: number
 ) {
-  const encryptionKey = process.env.SECRET_ENCRYPTION_KEY || "";
-  const k = `sp-${uuidv4()}`;
+  const randomKey = CryptoJS.lib.WordArray.random(128 / 8).toString();
+  const secretId = `sp-${uuidv4()}~${randomKey}`;
 
-  const encrypted = AES.encrypt(secret, encryptionKey).toString();
+  const encrypted = AES.encrypt(secret, randomKey).toString();
+  await kv.set(secretId, encrypted, { ex: expiration, nx: true });
 
-  await kv.set(k, encrypted, { ex: expiration, nx: true });
-
-  return k;
+  return secretId;
 }
 
 export async function getSecretAndDecrypt(id: string) {
   revalidatePath("/");
 
-  const encryptionKey = process.env.SECRET_ENCRYPTION_KEY || "";
-  const value = await kv.getdel(id);
-  if (!value || typeof value !== "string") {
-    return null;
+  const match = id.match(/~([a-f0-9]+)/);
+  if (match && match.length == 2) {
+    const key = match[1];
+
+    const value = await kv.getdel(id);
+    if (!value || typeof value !== "string") {
+      return null;
+    }
+
+    const decrypted = AES.decrypt(value, key).toString(Utf8);
+    return decrypted;
   }
 
-  const decrypted = AES.decrypt(value, encryptionKey).toString(Utf8);
-  return decrypted;
+  return null;
 }
 
 export async function deleteSecret(id: string) {
