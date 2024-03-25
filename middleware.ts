@@ -18,7 +18,7 @@ export function middleware(request: NextRequest) {
     request.nextUrl.pathname.startsWith("/share/")
   ) {
     const match = request.nextUrl.pathname.match(
-      /^\/(share|get)\/(sp-[a-f0-9\-]+)/
+      /^\/(share|get)\/(sp-[a-zA-Z1-9]+)/
     );
     const id = match ? match[2] : null;
     if (!id || !validateSecretId(id)) {

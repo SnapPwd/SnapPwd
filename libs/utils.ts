@@ -1,4 +1,5 @@
 import { validate } from "uuid";
+import shortUUID from "short-uuid";
 
 export const getSiteUrl = (trailingSlash: boolean = false) => {
   let url =
@@ -20,5 +21,12 @@ export const getSiteUrl = (trailingSlash: boolean = false) => {
 };
 
 export const validateSecretId = (id: string) => {
-  return id.startsWith("sp-") && id.length === 39 && validate(id.substring(3));
+  if (!id.startsWith("sp-") || id.length !== 25) {
+    return false;
+  }
+
+  // Convert short UUID to full UUID and validate it
+  const shortUuid = id.substring(3);
+  const uuid = shortUUID().toUUID(shortUuid);
+  return validate(uuid);
 };
