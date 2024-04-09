@@ -1,11 +1,11 @@
 "use server";
 
-import { kv } from "@vercel/kv";
 import AES from "crypto-js/aes";
 import Utf8 from "crypto-js/enc-utf8";
 import CryptoJS from "crypto-js";
 import { revalidatePath } from "next/cache";
 import shortUUID from "short-uuid";
+import { redisClient } from "./redis-client";
 
 export async function encryptAndStoreSecret(
   secret: string,
@@ -15,7 +15,9 @@ export async function encryptAndStoreSecret(
   const storageKey = `sp-${shortUUID.generate()}`;
 
   const encrypted = AES.encrypt(secret, encryptionKey).toString();
-  await kv.set(storageKey, encrypted, { ex: expiration, nx: true });
+
+  const kv = await redisClient();
+  await kv.setEx(storageKey, expiration, encrypted);
 
   return `${storageKey}-${encryptionKey}`;
 }
@@ -33,7 +35,9 @@ export async function getSecretAndDecrypt(secretId: string) {
     matchDecryptionKey.length === 1
   ) {
     const storageKey = matchStorageKey[0];
-    const value = await kv.getdel(storageKey);
+
+    const kv = await redisClient();
+    const value = await kv.getDel(storageKey);
     if (!value || typeof value !== "string") {
       return null;
     }
@@ -47,5 +51,6 @@ export async function getSecretAndDecrypt(secretId: string) {
 }
 
 export async function deleteSecret(secretId: string) {
+  const kv = await redisClient();
   await kv.del(secretId);
 }
