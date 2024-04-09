@@ -14,7 +14,9 @@ export default async function Navbar() {
             <Link href="/" className={s.logo} aria-label="Logo">
               <Logo width={32} height={32} />
             </Link>
-            <span className="px-2">SnapPwd</span>
+            <Link href="/">
+              <span className="px-2">SnapPwd</span>
+            </Link>
           </div>
         </div>
       </div>
