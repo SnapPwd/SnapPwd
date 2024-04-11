@@ -27,3 +27,15 @@ In `.env.local` set `REDIS_URL` and `REDIS_TLS` as follows:
 REDIS_URL=redis://127.0.0.1:6379
 REDIS_TLS=false
 ```
+
+Install dependencies:
+
+```
+npm install
+```
+
+Start dev server:
+
+```
+npm run dev
+```
