@@ -73,16 +73,3 @@ export const shareMetadata: Metadata = {
     canonical: "/share",
   },
 };
-
-// Get page specific metadata
-export const getMetadata: Metadata = {
-  title: "Reveal Secret",
-  description:
-    "Securely access a shared secret. This link will self-destruct after viewing.",
-  robots: {
-    index: false, // Don't index get pages
-  },
-  alternates: {
-    canonical: "/get",
-  },
-};

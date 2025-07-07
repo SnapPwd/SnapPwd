@@ -20,3 +20,7 @@ export async function generateUrl(formData: FormData) {
   );
   redirect(`/share/${k}`);
 }
+
+export const revealSecret = async (formData: FormData) => {
+  redirect(`/get/${formData.get("secretId")}?reveal=true`);
+};
