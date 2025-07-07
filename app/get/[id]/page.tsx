@@ -3,6 +3,9 @@ import CopyButton from "@/components/ui/CopyButton";
 import { redirect } from "next/navigation";
 import { Textarea } from "@/components/ui/textarea";
 import { getSecretAndDecrypt } from "@/libs/snappwd";
+import { getMetadata } from "@/app/metadata";
+
+export const metadata = getMetadata;
 
 interface PageProps {
   params: { id: string };

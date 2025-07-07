@@ -6,12 +6,13 @@ import Navbar from "@/components/ui/Navbar";
 import Footer from "@/components/ui/Footer";
 import cn from "classnames";
 import { Analytics } from "@vercel/analytics/react";
+import { baseMetadata } from "./metadata";
+import dynamic from "next/dynamic";
 
-export const metadata: Metadata = {
-  title: "SnapPwd - Securely share passwords and secrets",
-  description:
-    "SnapPwd is a secure way to share passwords and secrets with others. It's like Snapchat for passwords.",
-};
+// Dynamically import the JsonLd component to avoid SSR issues
+const JsonLd = dynamic(() => import('./components/JsonLd'), { ssr: false });
+
+export const metadata: Metadata = baseMetadata;
 
 export default function RootLayout({
   children,
@@ -27,6 +28,7 @@ export default function RootLayout({
         </main>
         <Footer /> {/* 3.5rem for desktop, 5rem for mobile */}
         <Analytics />
+        <JsonLd />
       </body>
     </html>
   );

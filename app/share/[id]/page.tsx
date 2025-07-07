@@ -1,5 +1,8 @@
 import CopyButton from "@/components/ui/CopyButton";
 import { getSiteUrl } from "@/libs/utils";
+import { shareMetadata } from "@/app/metadata";
+
+export const metadata = shareMetadata;
 
 export default function Share({ params }: { params: { id: string } }) {
   const { id } = params;
