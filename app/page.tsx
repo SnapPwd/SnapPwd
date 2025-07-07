@@ -1,27 +1,32 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import SecretInput from "@/components/ui/SecretInput";
-import { encryptAndStoreSecret } from "@/libs/snappwd";
-import { redirect } from "next/navigation";
+import { useFormStatus } from "react-dom";
+import { Loader2 } from "lucide-react";
+import { generateUrl } from "./actions";
 
-const expirationOptions = {
-  one_hour: 3600,
-  one_day: 86400,
-  one_week: 604800,
-  two_weeks: 1209600,
-};
-
-const generateUrl = async (formData: FormData) => {
-  "use server";
-
-  const { secret, expiration } = Object.fromEntries(formData);
-  const expirationKey = expiration.toString() as keyof typeof expirationOptions;
-
-  const k = await encryptAndStoreSecret(
-    secret.toString(),
-    expirationOptions[expirationKey]
+function SubmitButton() {
+  const { pending } = useFormStatus();
+  
+  return (
+    <Button
+      variant="outline"
+      size="lg"
+      className="bg-black text-white w-[160px]"
+      type="submit"
+      disabled={pending}
+    >
+      {pending ? (
+        <>
+          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+        </>
+      ) : (
+        "Generate URL"
+      )}
+    </Button>
   );
-  redirect(`/share/${k}`);
-};
+}
 
 export default function Home() {
   return (
@@ -38,7 +43,7 @@ export default function Home() {
           </div>
           <div className="py-4 md:py-0 md:px-12 flex flex-row md:flex-col gap-4">
             <select
-              className="border border-slate-400 rounded-md p-2"
+              className="border border-slate-400 rounded-md p-2 w-[160px]"
               name="expiration"
               id="expiration"
             >
@@ -47,14 +52,7 @@ export default function Home() {
               <option value="one_week">1 week</option>
               <option value="two_weeks">2 weeks</option>
             </select>
-            <Button
-              variant="outline"
-              size="lg"
-              className="bg-black text-white"
-              type="submit"
-            >
-              Generate URL
-            </Button>
+            <SubmitButton />
           </div>
         </form>
       </div>
