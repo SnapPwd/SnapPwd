@@ -14,7 +14,7 @@ export default function JsonLd() {
   const structuredData = {
     '@context': 'https://schema.org',
     '@type': 'WebApplication',
-    'name': 'SnappWD',
+    'name': 'SnapPwd',
     'url': baseUrl,
     'description': 'Securely share passwords and sensitive information with self-destructing links',
     'applicationCategory': 'SecurityApplication',

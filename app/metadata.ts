@@ -50,26 +50,3 @@ export const baseMetadata: Metadata = {
     follow: true,
   },
 };
-
-// Home page specific metadata
-export const homeMetadata: Metadata = {
-  title: "Secure Password Sharing",
-  description:
-    "Create self-destructing links to share passwords, API keys, and other sensitive information securely.",
-  alternates: {
-    canonical: "/",
-  },
-};
-
-// Share page specific metadata
-export const shareMetadata: Metadata = {
-  title: "Share Your Secret Link",
-  description:
-    "Your secret has been encrypted and is ready to share with a self-destructing link.",
-  robots: {
-    index: false, // Don't index share pages
-  },
-  alternates: {
-    canonical: "/share",
-  },
-};
