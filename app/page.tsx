@@ -4,7 +4,8 @@ import { Button } from "@/components/ui/button";
 import SecretInput from "@/components/ui/SecretInput";
 import { useFormStatus } from "react-dom";
 import { Loader2 } from "lucide-react";
-import { generateUrl } from "./actions";
+import { storeEncryptedSecret } from "./actions";
+import { encryptData, generateEncryptionKey } from "@/libs/client-crypto";
 
 function SubmitButton() {
   const { pending } = useFormStatus();
@@ -18,9 +19,7 @@ function SubmitButton() {
       disabled={pending}
     >
       {pending ? (
-        <>
-          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-        </>
+            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
       ) : (
         "Generate URL"
       )}
@@ -29,6 +28,33 @@ function SubmitButton() {
 }
 
 export default function Home() {
+  
+  // Client-side form submission with encryption
+  const handleSubmit = async (formData: FormData) => {
+    try {
+      
+      // Get the secret and expiration from the form
+      const secret = formData.get("secret") as string;
+      const expiration = formData.get("expiration") as string;
+      
+      // Generate a random encryption key in the browser
+      const encryptionKey = generateEncryptionKey();
+      
+      // Encrypt the secret in the browser
+      const encryptedSecret = await encryptData(secret, encryptionKey);
+      
+      // Send only the encrypted data to the server
+      const storageKey = await storeEncryptedSecret(encryptedSecret, expiration);
+      
+      // Redirect to the share page with both the storage key and encryption key
+      window.location.href = `/share/${storageKey}-${encryptionKey}`;
+    } catch (error) {
+      console.error("Encryption error:", error);
+      alert("Failed to encrypt and store your secret. Please try again.");
+    } finally {
+    }
+  };
+  
   return (
     <section className="">
       <div className="max-w-6xl mx-auto px-6">
@@ -36,7 +62,7 @@ export default function Home() {
         <form
           className="flex flex-col md:flex-row w-full"
           id="generateUrl"
-          action={generateUrl}
+          action={handleSubmit}
         >
           <div className="md:flex-1">
             <SecretInput />

@@ -1,6 +1,6 @@
 "use server";
 
-import { encryptAndStoreSecret } from "@/libs/snappwd";
+import { storeEncryptedSecret as storeSecret } from "@/libs/snappwd";
 import { redirect } from "next/navigation";
 
 const expirationOptions = {
@@ -10,15 +10,21 @@ const expirationOptions = {
   two_weeks: 1209600,
 };
 
-export async function generateUrl(formData: FormData) {
-  const { secret, expiration } = Object.fromEntries(formData);
+// New function that only stores the already-encrypted secret
+export async function storeEncryptedSecret(
+  encryptedSecret: string,
+  expiration: string
+) {
   const expirationKey = expiration.toString() as keyof typeof expirationOptions;
 
-  const k = await encryptAndStoreSecret(
-    secret.toString(),
+  // Store the already-encrypted secret
+  const storageKey = await storeSecret(
+    encryptedSecret.toString(),
     expirationOptions[expirationKey]
   );
-  redirect(`/share/${k}`);
+
+  // Return just the storage key - the encryption key stays client-side only
+  return storageKey;
 }
 
 export const revealSecret = async (formData: FormData) => {

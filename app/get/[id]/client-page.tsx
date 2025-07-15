@@ -6,6 +6,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { revealSecret } from "@/app/actions";
 import { useFormStatus } from "react-dom";
 import { Loader2 } from "lucide-react";
+import { useState, useEffect } from "react";
+import { decryptData } from "@/libs/client-crypto";
 
 function RevealButton() {
   const { pending } = useFormStatus();
@@ -19,9 +21,7 @@ function RevealButton() {
       disabled={pending}
     >
       {pending ? (
-        <>
           <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-        </>
       ) : (
         "Reveal Secret"
       )}
@@ -41,22 +41,39 @@ export function RevealForm({ id }: { id: string }) {
   );
 }
 
-export function SecretDisplay({ secret }: { secret: string }) {
+export function SecretDisplay({ encryptedSecret, decryptionKey }: { encryptedSecret: string, decryptionKey: string }) {
+  const [decryptedSecret, setDecryptedSecret] = useState<string>("");
+  const [isDecrypting, setIsDecrypting] = useState<boolean>(true);
+
+  useEffect(() => {
+    const decrypt= async () => {
+      const decryptedSecret = await decryptData(encryptedSecret, decryptionKey);
+      setDecryptedSecret(decryptedSecret);
+      setIsDecrypting(false);
+    }
+
+    decrypt(); 
+  }, [encryptedSecret, decryptionKey]);
+
   return (
     <div className="flex flex-col md:flex-row">
       <div className="md:flex-1">
         <Textarea
           className="min-h-[200px] font-mono bg-gray-100"
-          value={secret}
+          value={isDecrypting ? "Decrypting..." : decryptedSecret}
           readOnly
         />
         <p className="py-4">
           The secret has now been permanently deleted from the system, and
           the URL will no longer work. Refresh this page to verify.
         </p>
+        <p className="text-sm text-gray-600">
+          <strong>Security note:</strong> This secret was decrypted in your browser. 
+          The server never had access to the unencrypted content.
+        </p>
       </div>
       <div className="py-4 md:py-0 md:px-12">
-        <CopyButton text={secret} />
+        <CopyButton text={decryptedSecret} />
       </div>
     </div>
   );
