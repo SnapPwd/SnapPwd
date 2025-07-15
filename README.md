@@ -11,7 +11,32 @@ Secret IDs follow the format `sp-<shortUUID>-<decryptionKey>`:
 1. `sp-<shortUUID>` is used as the key in the KV store, with the encrypted secret content as the corresponding value.
 2. `<decryptionKey>` is used to decrypt data retrieved from the KV store.
 
-SnapPwd never stores the encryption/decryption key of secrets. These keys are randomly generated and associated with secret IDs. Even if someone gains unauthorized access to the KV store, the stored secrets cannot be read without the knowledge of secret IDs.
+SnapPwd never stores the encryption/decryption keys of secrets.
+
+### End-to-End Encryption
+
+SnapPwd uses true end-to-end encryption to protect your secrets:
+
+1. **Client-Side Encryption**: All encryption and decryption happens entirely in your browser using the Web Crypto API.
+
+   - A random 128-bit (16-byte) AES key is generated using `window.crypto.getRandomValues()`
+   - The secret is encrypted using AES-GCM with a random 12-byte initialization vector (IV)
+   - The encrypted data and IV are combined and encoded as a base64 string
+
+2. **Server-Side Storage**: The server only receives and stores the already-encrypted data.
+
+   - The server never sees the original plaintext secret
+   - The server never has access to the encryption key
+   - The encryption key is only included in the URL fragment that's shared
+
+3. **Secure Retrieval**: When a recipient opens the secret URL:
+
+   - The encrypted data is fetched from the server
+   - The decryption key is extracted from the URL
+   - Decryption happens locally in the recipient's browser
+   - The encrypted secret is immediately deleted from the server after being retrieved
+
+This approach ensures that even if the server or database is compromised, the attacker cannot decrypt any stored secrets without the unique decryption keys that only exist in the shared URLs.
 
 ## Dev setup
 
