@@ -1,86 +1,16 @@
-"use client";
+import SecretForm from "@/components/ui/SecretForm";
 
-import { Button } from "@/components/ui/button";
-import SecretInput from "@/components/ui/SecretInput";
-import { useFormStatus } from "react-dom";
-import { Loader2 } from "lucide-react";
-import { storeEncryptedSecret } from "./actions";
-import { encryptData, generateEncryptionKey } from "@/libs/client-crypto";
+export const metadata = {
+  title: "SnapPwd - Share Secrets Securely",
+  description: "Share passwords and sensitive information securely with end-to-end encryption"
+};
 
-function SubmitButton() {
-  const { pending } = useFormStatus();
-  
-  return (
-    <Button
-      variant="outline"
-      size="lg"
-      className="bg-black text-white w-[160px]"
-      type="submit"
-      disabled={pending}
-    >
-      {pending ? (
-            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-      ) : (
-        "Generate URL"
-      )}
-    </Button>
-  );
-}
-
-export default function Home() {
-  
-  // Client-side form submission with encryption
-  const handleSubmit = async (formData: FormData) => {
-    try {
-      
-      // Get the secret and expiration from the form
-      const secret = formData.get("secret") as string;
-      const expiration = formData.get("expiration") as string;
-      
-      // Generate a random encryption key in the browser
-      const encryptionKey = generateEncryptionKey();
-      
-      // Encrypt the secret in the browser
-      const encryptedSecret = await encryptData(secret, encryptionKey);
-      
-      // Send only the encrypted data to the server
-      const storageKey = await storeEncryptedSecret(encryptedSecret, expiration);
-      
-      // Redirect to the share page with both the storage key and encryption key
-      window.location.href = `/share/${storageKey}-${encryptionKey}`;
-    } catch (error) {
-      console.error("Encryption error:", error);
-      alert("Failed to encrypt and store your secret. Please try again.");
-    } finally {
-    }
-  };
-  
+export default function Home() {  
   return (
     <section className="">
       <div className="max-w-6xl mx-auto px-6">
         <h1 className="text-4xl font-bold mb-8">Set Secret</h1>
-        <form
-          className="flex flex-col md:flex-row w-full"
-          id="generateUrl"
-          action={handleSubmit}
-        >
-          <div className="md:flex-1">
-            <SecretInput />
-          </div>
-          <div className="py-4 md:py-0 md:px-12 flex flex-row md:flex-col gap-4">
-            <select
-              className="border border-slate-400 rounded-md p-2 w-[160px]"
-              name="expiration"
-              id="expiration"
-            >
-              <option value="one_hour">1 hour</option>
-              <option value="one_day">1 day</option>
-              <option value="one_week">1 week</option>
-              <option value="two_weeks">2 weeks</option>
-            </select>
-            <SubmitButton />
-          </div>
-        </form>
+        <SecretForm />
       </div>
     </section>
   );
