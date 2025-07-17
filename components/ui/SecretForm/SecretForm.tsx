@@ -14,7 +14,7 @@ function SubmitButton() {
     <Button
       variant="outline"
       size="lg"
-      className="bg-black text-white w-[160px]"
+      className="bg-black text-white w-full"
       type="submit"
       disabled={pending}
     >
@@ -52,24 +52,29 @@ const handleSubmit = async (formData: FormData) => {
 export default function SecretForm() {
   return (
     <form
-      className="flex flex-col md:flex-row w-full"
+      className="flex flex-col md:flex-row w-full gap-6 md:gap-8"
       id="generateUrl"
       action={handleSubmit}
     >
       <div className="md:flex-1">
         <SecretInput />
       </div>
-      <div className="py-4 md:py-0 md:px-12 flex flex-row md:flex-col gap-4">
-        <select
-          className="border border-slate-400 rounded-md p-2 w-[160px]"
-          name="expiration"
-          id="expiration"
-        >
-          <option value="one_hour">1 hour</option>
-          <option value="one_day">1 day</option>
-          <option value="one_week">1 week</option>
-          <option value="two_weeks">2 weeks</option>
-        </select>
+      <div className="grid grid-cols-2 md:grid-cols-1 w-full md:max-w-[160px] gap-4 md:gap-0">
+        <div className="flex flex-col gap-2 w-full">
+          <select
+            className="border border-slate-400 rounded-md p-2 w-full"
+            name="expiration"
+            id="expiration"
+          >
+            <option value="one_hour">1 hour</option>
+            <option value="one_day">1 day</option>
+            <option value="one_week">1 week</option>
+            <option value="two_weeks">2 weeks</option>
+          </select>
+          <p className="text-xs text-gray-500 w-full text-left">
+            After this time, the secret will be permanently deleted
+          </p>
+        </div>
         <SubmitButton />
       </div>
     </form>
