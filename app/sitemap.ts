@@ -3,7 +3,7 @@ import { MetadataRoute } from "next";
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = process.env.SITE_URL!;
 
-  const homeLastModified = new Date("2025-07-08");
+  const homeLastModified = new Date("2025-08-03");
   const aboutLastModified = new Date("2025-07-09");
   const privacyLastModified = new Date("2025-07-09");
   const termsLastModified = new Date("2025-07-09");

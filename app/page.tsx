@@ -4,7 +4,10 @@ import { Shield, Clock, Lock, RefreshCw } from "lucide-react";
 export const metadata = {
   title: "SnapPwd - Share Secrets Securely",
   description:
-    "Share passwords and sensitive information securely with end-to-end encryption",
+    "Share passwords and sensitive information securely with end-to-end encryption. Self-destructing links with one-time access for maximum security.",
+  alternates: {
+    canonical: '/',
+  },
 };
 
 function FeatureCard({

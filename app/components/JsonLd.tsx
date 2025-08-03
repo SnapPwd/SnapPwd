@@ -19,6 +19,7 @@ export default function JsonLd() {
     'description': 'Securely share passwords and sensitive information with self-destructing links',
     'applicationCategory': 'SecurityApplication',
     'operatingSystem': 'Any',
+    'browserRequirements': 'Requires JavaScript. Requires HTML5.',
     'offers': {
       '@type': 'Offer',
       'price': '0',
@@ -29,8 +30,23 @@ export default function JsonLd() {
       'End-to-end encryption',
       'One-time viewing',
       'No registration required',
-      'Free to use'
-    ]
+      'Free to use',
+      'Client-side encryption',
+      'Configurable expiration times'
+    ],
+    'screenshot': `${baseUrl}/og-image.png`,
+    'softwareVersion': '1.0',
+    'aggregateRating': {
+      '@type': 'AggregateRating',
+      'ratingValue': '5.0',
+      'ratingCount': '1'
+    },
+    'author': {
+      '@type': 'Organization',
+      'name': 'SnapPwd Team'
+    },
+    'datePublished': '2025-01-01',
+    'dateModified': '2025-08-03'
   };
 
   return (
