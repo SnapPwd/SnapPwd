@@ -1,12 +1,13 @@
 import SecretForm from "@/components/ui/SecretForm";
 import { Shield, Clock, Lock, RefreshCw } from "lucide-react";
+import FAQSection from "../components/ui/FAQSection";
 
 export const metadata = {
   title: "SnapPwd - Share Secrets Securely",
   description:
     "Share passwords and sensitive information securely with end-to-end encryption. Self-destructing links with one-time access for maximum security.",
   alternates: {
-    canonical: '/',
+    canonical: "/",
   },
 };
 
@@ -123,6 +124,9 @@ export default function Home() {
           </ol>
         </div>
       </section>
+
+      {/* FAQ Section */}
+      <FAQSection />
     </div>
   );
 }

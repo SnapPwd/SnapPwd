@@ -8,7 +8,10 @@ export default function Footer() {
           <span>&copy; {new Date().getFullYear()} SnapPwd.</span>
           <span>
             Open-sourced on{" "}
-            <Link href="https://github.com/SnapPwd" className="underline">
+            <Link
+              href="https://github.com/SnapPwd/snappwd"
+              className="underline"
+            >
               GitHub
             </Link>
             .

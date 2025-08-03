@@ -7,10 +7,7 @@ import Footer from "@/components/ui/Footer";
 import cn from "classnames";
 import { Analytics } from "@vercel/analytics/react";
 import { baseMetadata } from "./metadata";
-import dynamic from "next/dynamic";
-
-// Dynamically import the JsonLd component to avoid SSR issues
-const JsonLd = dynamic(() => import('./components/JsonLd'), { ssr: false });
+import JsonLd from "@/components/ui/JsonLd";
 
 export const metadata: Metadata = baseMetadata;
 
