@@ -17,7 +17,7 @@
     "crypto-js": "^4.2.0",
     "geist": "^1.2.2",
     "lucide-react": "^0.525.0",
-    "next": "14.1.0",
+    "next": "14.2.32",
     "react": "^18",
     "react-dom": "^18",
     "react-icons": "^5.0.1",
