@@ -51,9 +51,9 @@ export default function FAQSection() {
         "Your encrypted data is automatically deleted from our servers once it's accessed by the recipient or when it expires, whichever comes first. We don't keep backups of expired content.",
     },
     {
-      question: "Can I set custom expiration times?",
+      question: "Can I choose an expiration time?",
       answer:
-        "Yes, you can set custom expiration times for your secrets, from minutes to days. You can also configure links for one-time access only.",
+        "Yes. You can choose how long your secret lasts (1 hour, 1 day, 1 week, or 2 weeks). Secrets are designed for one-time access: once revealed, they’re deleted.",
     },
     {
       question: "Do I need to create an account?",

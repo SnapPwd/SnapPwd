@@ -64,7 +64,7 @@ export default function Home() {
             <FeatureCard
               icon={Shield}
               title="End-to-End Encryption"
-              description="Your data is encrypted in your browser before being sent to our servers. Only the recipient with the correct link can decrypt it."
+              description="Your secret is encrypted in your browser before it’s sent to our servers. Only someone with the link can open it."
             />
             <FeatureCard
               icon={Clock}
@@ -74,7 +74,7 @@ export default function Home() {
             <FeatureCard
               icon={RefreshCw}
               title="One-Time Access"
-              description="Links can be configured for one-time access only, ensuring your secret is only viewed by the intended recipient."
+              description="Each secret can be revealed only once. After it’s opened, it’s permanently deleted from our servers."
             />
           </div>
         </div>
@@ -105,8 +105,8 @@ export default function Home() {
                 Generate Secure Link
               </h3>
               <p className="text-gray-600">
-                We create an encrypted link that you can share with the intended
-                recipient.
+                Your secret is encrypted in your browser and a link is generated
+                for you to share.
               </p>
             </li>
             <li className="flex-1 bg-white p-6 rounded-lg shadow-sm border border-gray-100 relative">
