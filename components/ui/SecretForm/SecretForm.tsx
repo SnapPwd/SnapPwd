@@ -59,7 +59,7 @@ const handleSubmit = async (formData: FormData) => {
 
     // Redirect to the share page with storage key in path and encryption key in hash
     // Hash fragment is never sent to the server
-    window.location.href = `/share/${encodeURIComponent(
+    window.location.href = `/s/${encodeURIComponent(
       storageKey
     )}#${encodeURIComponent(encryptionKey)}`;
   } catch (error) {

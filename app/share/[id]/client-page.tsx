@@ -1,6 +1,7 @@
 "use client";
 
 import CopyButton from "@/components/ui/CopyButton";
+import { isValidBase58Key } from "@/libs/client-crypto";
 import { useEffect, useState } from "react";
 
 export function ShareClient({ storageKey }: { storageKey: string }) {
@@ -23,14 +24,14 @@ export function ShareClient({ storageKey }: { storageKey: string }) {
       return;
     }
 
-    if (!/^[0-9a-f]{32}$/i.test(encryptionKey)) {
+    if (!isValidBase58Key(encryptionKey)) {
       setError("Invalid encryption key in URL.");
       return;
     }
 
     const baseUrl = window.location.origin;
     setSecretUrl(
-      `${baseUrl}/get/${encodeURIComponent(storageKey)}#${encodeURIComponent(
+      `${baseUrl}/g/${encodeURIComponent(storageKey)}#${encodeURIComponent(
         encryptionKey
       )}`
     );

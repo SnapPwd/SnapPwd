@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import CopyButton from "@/components/ui/CopyButton";
 import { Textarea } from "@/components/ui/textarea";
 import { useState, useEffect } from "react";
-import { decryptData } from "@/libs/client-crypto";
+import { decryptData, isValidBase58Key } from "@/libs/client-crypto";
 
 export function RevealForm({ id }: { id: string }) {
   const handleReveal = () => {
@@ -16,7 +16,7 @@ export function RevealForm({ id }: { id: string }) {
       );
       return;
     }
-    window.location.href = `/get/${encodeURIComponent(id)}?reveal=true${hash}`;
+    window.location.href = `/g/${encodeURIComponent(id)}?reveal=true${hash}`;
   };
 
   return (
@@ -65,7 +65,7 @@ export function SecretDisplay({
         return;
       }
 
-      if (!/^[0-9a-f]{32}$/i.test(decryptionKey)) {
+      if (!isValidBase58Key(decryptionKey)) {
         setError("Invalid decryption key in URL.");
         setIsDecrypting(false);
         return;
