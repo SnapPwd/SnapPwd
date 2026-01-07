@@ -6,10 +6,12 @@ SnapPwd is a Next.js web app inspired by [snappass](https://github.com/pinterest
 
 Each secret content is encrypted using a random 128-bit key. The encrypted secret is stored in a KV store, and a shareable link containing the secret ID is generated.
 
-Secret IDs follow the format `sp-<shortUUID>-<decryptionKey>`:
+Secret links contain a storage key in the path and a decryption key in the URL fragment.
+
+Storage keys follow the format `sp-<shortUUID>`:
 
 1. `sp-<shortUUID>` is used as the key in the KV store, with the encrypted secret content as the corresponding value.
-2. `<decryptionKey>` is used to decrypt data retrieved from the KV store.
+2. The decryption key is used to decrypt data retrieved from the KV store and is carried client-side in the URL fragment (hash).
 
 SnapPwd never stores the encryption/decryption keys of secrets.
 

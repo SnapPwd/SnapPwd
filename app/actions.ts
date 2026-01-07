@@ -17,6 +17,14 @@ export async function storeEncryptedSecret(
 ) {
   const expirationKey = expiration.toString() as keyof typeof expirationOptions;
 
+  if (!(expirationKey in expirationOptions)) {
+    throw new Error("Invalid expiration");
+  }
+
+  if (typeof encryptedSecret !== "string" || encryptedSecret.length === 0) {
+    throw new Error("Invalid encrypted secret");
+  }
+
   // Store the already-encrypted secret
   const storageKey = await storeSecret(
     encryptedSecret.toString(),

@@ -26,7 +26,8 @@ export async function storeEncryptedSecret(
 /**
  * Get the encrypted secret from Redis
  *
- * @param secretId is in the format of `sp-<shortUUID>-<decryptionKey>`
+ * @param secretId is the storage key in the format of `sp-<shortUUID>`
+ * The decryption key is carried client-side in the URL hash fragment.
  * @returns
  */
 export async function getEncryptedSecret(secretId: string) {

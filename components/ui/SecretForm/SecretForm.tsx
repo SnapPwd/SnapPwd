@@ -28,21 +28,40 @@ function SubmitButton() {
 }
 
 const handleSubmit = async (formData: FormData) => {
-  const secret = formData.get("secret") as string;
-  const expiration = formData.get("expiration") as string;
+  const secretValue = formData.get("secret");
+  const expirationValue = formData.get("expiration");
+
+  if (typeof secretValue !== "string" || secretValue.length === 0) {
+    alert("Please enter a secret.");
+    return;
+  }
+
+  if (
+    typeof expirationValue !== "string" ||
+    !["one_hour", "one_day", "one_week", "two_weeks"].includes(expirationValue)
+  ) {
+    alert("Please select a valid expiration.");
+    return;
+  }
 
   try {
     // Generate a random encryption key in the browser
     const encryptionKey = generateEncryptionKey();
 
     // Encrypt the secret in the browser
-    const encryptedSecret = await encryptData(secret, encryptionKey);
+    const encryptedSecret = await encryptData(secretValue, encryptionKey);
 
     // Send only the encrypted data to the server
-    const storageKey = await storeEncryptedSecret(encryptedSecret, expiration);
+    const storageKey = await storeEncryptedSecret(
+      encryptedSecret,
+      expirationValue
+    );
 
-    // Redirect to the share page with both the storage key and encryption key
-    window.location.href = `/share/${storageKey}-${encryptionKey}`;
+    // Redirect to the share page with storage key in path and encryption key in hash
+    // Hash fragment is never sent to the server
+    window.location.href = `/share/${encodeURIComponent(
+      storageKey
+    )}#${encodeURIComponent(encryptionKey)}`;
   } catch (error) {
     console.error("Encryption error:", error);
     alert("Failed to encrypt and store your secret. Please try again.");

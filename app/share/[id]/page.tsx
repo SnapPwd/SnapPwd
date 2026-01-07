@@ -1,9 +1,7 @@
-import CopyButton from "@/components/ui/CopyButton";
-import { getSiteUrl } from "@/libs/utils";
+import { ShareClient } from "./client-page";
 
 export default function Share({ params }: { params: { id: string } }) {
   const { id } = params;
-  const secretUrl = `${getSiteUrl()}/get/${id}`;
 
   return (
     <section className="">
@@ -13,12 +11,7 @@ export default function Share({ params }: { params: { id: string } }) {
           The secret has been temporarily saved. Send the following URL to your
           intended recipient.
         </p>
-        <div className="flex flex-col md:flex-row items-center my-2 gap-2">
-          <span className="border rounded-md border-slate-400 py-1 px-2 font-mono bg-gray-200">
-            {secretUrl}
-          </span>
-          <CopyButton text={secretUrl} />
-        </div>
+        <ShareClient storageKey={id} />
       </div>
     </section>
   );
