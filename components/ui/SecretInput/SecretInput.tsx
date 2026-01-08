@@ -12,7 +12,7 @@ export default function SecretInput() {
         id="secret"
         name="secret"
         required
-        placeholder="SnapPwd allows you to share secrets in a secure, ephemeral way. Input a single or multi-line secret, its expiration time, and click Generate URL. Share the one-time use URL with your intended recipient."
+        placeholder="SnapPwd allows you to share secrets in a secure, ephemeral way. Input a single or multi-line secret, its expiration time, and click Generate Link. Share the one-time use URL with your intended recipient."
       />
     </div>
   );

@@ -4,11 +4,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = process.env.SITE_URL!;
   const showLegalPages = process.env.SHOW_LEGAL_PAGES === "true";
 
-  const homeLastModified = new Date("2025-01-07");
+  const homeLastModified = new Date("2025-01-08");
   const aboutLastModified = new Date("2025-01-07");
   const privacyLastModified = new Date("2025-01-07");
   const termsLastModified = new Date("2025-01-07");
   const faqLastModified = new Date("2025-01-07");
+  const developersLastModified = new Date("2025-01-08");
+  const apiKeysLastModified = new Date("2025-01-08");
 
   const sitemapEntries: MetadataRoute.Sitemap = [
     {
@@ -47,6 +49,22 @@ export default function sitemap(): MetadataRoute.Sitemap {
       }
     );
   }
+
+  // Always include developer-focused pages
+  sitemapEntries.push(
+    {
+      url: `${baseUrl}/developers`,
+      lastModified: developersLastModified,
+      changeFrequency: "monthly",
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/api-keys`,
+      lastModified: apiKeysLastModified,
+      changeFrequency: "monthly",
+      priority: 0.9,
+    }
+  );
 
   return sitemapEntries;
 }
