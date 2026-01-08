@@ -6,7 +6,7 @@ const BASE58_ALPHABET =
 /**
  * Encode a Uint8Array to base58 string
  */
-function base58Encode(bytes: Uint8Array): string {
+export function base58Encode(bytes: Uint8Array): string {
   const digits = [0];
   for (let b = 0; b < bytes.length; b++) {
     let carry = bytes[b];
@@ -36,7 +36,7 @@ function base58Encode(bytes: Uint8Array): string {
 /**
  * Decode a base58 string to Uint8Array
  */
-function base58Decode(str: string): Uint8Array {
+export function base58Decode(str: string): Uint8Array {
   const bytes = [0];
   for (const char of str) {
     const value = BASE58_ALPHABET.indexOf(char);
