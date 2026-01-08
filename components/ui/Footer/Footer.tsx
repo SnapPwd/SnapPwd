@@ -18,21 +18,34 @@ export default function Footer() {
           </span>
         </div>
         <div className="flex flex-wrap gap-4 text-sm">
-          <Link href="/about" className="hover:text-gray-300 transition-colors">
-            About
-          </Link>
-          <Link href="/faq" className="hover:text-gray-300 transition-colors">
-            FAQ
-          </Link>
-          <Link
-            href="/privacy"
-            className="hover:text-gray-300 transition-colors"
-          >
-            Privacy Policy
-          </Link>
-          <Link href="/terms" className="hover:text-gray-300 transition-colors">
-            Terms of Service
-          </Link>
+          {process.env.SHOW_LEGAL_PAGES === "true" && (
+            <>
+              <Link
+                href="/about"
+                className="hover:text-gray-300 transition-colors"
+              >
+                About
+              </Link>
+              <Link
+                href="/faq"
+                className="hover:text-gray-300 transition-colors"
+              >
+                FAQ
+              </Link>
+              <Link
+                href="/privacy"
+                className="hover:text-gray-300 transition-colors"
+              >
+                Privacy Policy
+              </Link>
+              <Link
+                href="/terms"
+                className="hover:text-gray-300 transition-colors"
+              >
+                Terms of Service
+              </Link>
+            </>
+          )}
         </div>
       </div>
     </footer>

@@ -71,10 +71,12 @@ export default function AboutPage() {
             Have questions, feedback, or need support? We&apos;d love to hear
             from you. Please contact us at{" "}
             <a
-              href="mailto:support@snappwd.io"
+              href={`mailto:${
+                process.env.SUPPORT_EMAIL || "support@snappwd.io"
+              }`}
               className="text-blue-600 hover:underline"
             >
-              support@snappwd.io
+              {process.env.SUPPORT_EMAIL || "support@snappwd.io"}
             </a>
             .
           </p>

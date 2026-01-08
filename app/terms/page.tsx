@@ -117,10 +117,10 @@ export default function TermsPage() {
           <p>
             If you have any questions about these Terms, please contact us at{" "}
             <a
-              href="mailto:legal@snappwd.io"
+              href={`mailto:${process.env.LEGAL_EMAIL || "legal@snappwd.io"}`}
               className="text-blue-600 hover:underline"
             >
-              legal@snappwd.io
+              {process.env.LEGAL_EMAIL || "legal@snappwd.io"}
             </a>
             .
           </p>

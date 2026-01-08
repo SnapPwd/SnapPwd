@@ -115,7 +115,7 @@ export default function FAQPage() {
             to help.
           </p>
           <a
-            href="mailto:support@snappwd.io"
+            href={`mailto:${process.env.SUPPORT_EMAIL || "support@snappwd.io"}`}
             className="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
           >
             Contact Support

@@ -19,30 +19,34 @@ export default async function Navbar() {
             </Link>
           </div>
           <div className="flex items-center space-x-6">
-            <Link
-              href="/about"
-              className="text-gray-600 hover:text-gray-900 transition-colors"
-            >
-              About
-            </Link>
-            <Link
-              href="/faq"
-              className="text-gray-600 hover:text-gray-900 transition-colors"
-            >
-              FAQ
-            </Link>
-            <Link
-              href="/privacy"
-              className="text-gray-600 hover:text-gray-900 transition-colors"
-            >
-              Privacy
-            </Link>
-            <Link
-              href="/terms"
-              className="text-gray-600 hover:text-gray-900 transition-colors"
-            >
-              Terms
-            </Link>
+            {process.env.SHOW_LEGAL_PAGES === "true" && (
+              <>
+                <Link
+                  href="/about"
+                  className="text-gray-600 hover:text-gray-900 transition-colors"
+                >
+                  About
+                </Link>
+                <Link
+                  href="/faq"
+                  className="text-gray-600 hover:text-gray-900 transition-colors"
+                >
+                  FAQ
+                </Link>
+                <Link
+                  href="/privacy"
+                  className="text-gray-600 hover:text-gray-900 transition-colors"
+                >
+                  Privacy
+                </Link>
+                <Link
+                  href="/terms"
+                  className="text-gray-600 hover:text-gray-900 transition-colors"
+                >
+                  Terms
+                </Link>
+              </>
+            )}
           </div>
         </div>
       </div>

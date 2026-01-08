@@ -103,10 +103,12 @@ export default function PrivacyPage() {
             If you have any questions about this Privacy Policy, please contact
             us at{" "}
             <a
-              href="mailto:privacy@snappwd.io"
+              href={`mailto:${
+                process.env.PRIVACY_EMAIL || "privacy@snappwd.io"
+              }`}
               className="text-blue-600 hover:underline"
             >
-              privacy@snappwd.io
+              {process.env.PRIVACY_EMAIL || "privacy@snappwd.io"}
             </a>
             .
           </p>
