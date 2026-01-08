@@ -34,45 +34,45 @@ const developerUseCases = [
   {
     title: "Share .env Files Securely",
     description:
-      "Stop emailing .env files or posting them in Slack. Share environment variables with self-destructing links that automatically expire after use.",
+      "Environment variables contain sensitive configuration data that shouldn't be shared via email or chat. Share .env files with self-destructing links that provide one-time access, ensuring your environment variables remain secure.",
     icon: Shield,
     benefits: [
       "One-time access prevents accidental exposure",
       "End-to-end encryption protects your secrets",
-      "Perfect for onboarding new team members",
+      "Streamlines developer onboarding",
     ],
   },
   {
     title: "API Key Distribution",
     description:
-      "Safely distribute API keys, tokens, and access credentials to team members without leaving traces in chat history.",
+      "Sharing API keys through chat or email creates permanent records that pose security risks. Use encrypted links that automatically delete after first access, eliminating digital breadcrumbs in your communication history.",
     icon: Key,
     benefits: [
-      "Secure API key sharing with developers",
-      "Automatic cleanup after access",
-      "Audit trail for compliance",
+      "Share API keys without permanent traces",
+      "Automatic link deletion after access",
+      "Maintains security compliance standards",
     ],
   },
   {
     title: "Database Credentials",
     description:
-      "Share database passwords, connection strings, and access credentials securely during development and deployment.",
+      "Database passwords and connection strings need secure distribution, especially for development and staging environments. Share credentials with temporary access links that keep your communication channels clean.",
     icon: Database,
     benefits: [
       "Secure database credential sharing",
-      "Temporary access for contractors",
-      "Zero-knowledge architecture",
+      "Ideal for contractor and temporary access",
+      "Zero-knowledge architecture protects your data",
     ],
   },
   {
     title: "Team Onboarding",
     description:
-      "Streamline developer onboarding by securely sharing all necessary credentials, configuration files, and access information.",
+      "New developer onboarding often requires sharing multiple credentials and configuration files. Streamline the process with secure, organized credential sharing that doesn't compromise security.",
     icon: Users,
     benefits: [
-      "Secure onboarding workflow",
-      "Share multiple credentials safely",
-      "Reduce onboarding time",
+      "Simplified onboarding without security risks",
+      "Share multiple credentials securely at once",
+      "Reduces onboarding communication overhead",
     ],
   },
 ];
@@ -89,8 +89,9 @@ export default function DeveloperPage() {
             Developer Tools for Secure Secret Sharing
           </h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            The secure way to share API keys, .env files, and development
-            credentials with your team. Built by developers, for developers.
+            Share API keys, .env files, and development credentials securely
+            with your team. Self-destructing links designed for developer
+            workflows and security best practices.
           </p>
         </div>
 
@@ -135,31 +136,33 @@ export default function DeveloperPage() {
             <div>
               <h3 className="font-semibold mb-2 flex items-center">
                 <Lock className="h-5 w-5 mr-2 text-blue-600" />
-                Zero-Knowledge
+                Zero-Knowledge Architecture
               </h3>
               <p className="text-gray-700">
-                We never have access to your secrets. All encryption happens in
-                your browser.
+                All encryption happens in your browser before transmission. Our
+                servers never have access to your unencrypted secrets—it&apos;s
+                technically impossible with our architecture.
               </p>
             </div>
             <div>
               <h3 className="font-semibold mb-2 flex items-center">
                 <Zap className="h-5 w-5 mr-2 text-blue-600" />
-                Instant Setup
+                No Account Required
               </h3>
               <p className="text-gray-700">
-                No registration required. Start sharing secrets with your team
-                in seconds.
+                Share secrets instantly without sign-up, email verification, or
+                password management. Simple link generation in seconds.
               </p>
             </div>
             <div>
               <h3 className="font-semibold mb-2 flex items-center">
                 <Trash2 className="h-5 w-5 mr-2 text-blue-600" />
-                Auto-Cleanup
+                Self-Destructing Links
               </h3>
               <p className="text-gray-700">
-                Links self-destruct after access, eliminating credential sprawl
-                in your tools.
+                Each link automatically deletes after first access, eliminating
+                the risk of old credentials persisting in chat history or email
+                threads.
               </p>
             </div>
           </div>
@@ -167,11 +170,12 @@ export default function DeveloperPage() {
 
         <div className="text-center">
           <h2 className="text-2xl font-bold mb-4">
-            Ready to Secure Your Development Workflow?
+            Ready for Secure Developer Credential Sharing?
           </h2>
           <p className="text-gray-600 mb-6">
-            Join thousands of developers who trust SnapPwd for secure credential
-            sharing.
+            Join thousands of developers using SnapPwd to share credentials
+            securely. Eliminate the security risks of sharing API keys and
+            secrets through email or chat.
           </p>
           <a
             href="/"

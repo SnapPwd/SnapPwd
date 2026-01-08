@@ -40,27 +40,27 @@ export const metadata: Metadata = {
 
 const apiKeyBenefits = [
   {
-    title: "Zero-Knowledge Sharing",
+    title: "Zero-Knowledge Encryption",
     description:
-      "API keys are encrypted in your browser before transmission. We never see or store your API keys in plaintext.",
+      "Your API keys are encrypted in your browser before transmission. We can't access your keys even if we wanted to—it's technically impossible with our architecture.",
     icon: Shield,
   },
   {
-    title: "One-Time Access",
+    title: "One-Time Access Links",
     description:
-      "API key links self-destruct after first access, preventing accidental reuse or exposure in chat history.",
+      "Each link self-destructs after a single use. This eliminates the risk of old API keys lingering in chat history or email threads months later.",
     icon: Trash2,
   },
   {
     title: "No Registration Required",
     description:
-      "Start sharing API keys immediately without creating accounts or exposing your email to third-party services.",
+      "Share securely in seconds without creating an account. No email verification, password management, or lengthy signup process.",
     icon: Zap,
   },
   {
-    title: "Perfect for Teams",
+    title: "Built for Teams",
     description:
-      "Ideal for sharing API keys with contractors, new team members, or during development and testing phases.",
+      "Whether onboarding new hires, working with contractors, or sharing with teammates, SnapPwd ensures your API keys stay secure and don't end up in the wrong hands.",
     icon: Users,
   },
 ];
@@ -98,9 +98,9 @@ export default function APIKeysPage() {
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold mb-4">Secure API Key Sharing</h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Share API keys and access tokens securely with your team.
-            Self-destructing links prevent credential exposure in chat logs and
-            emails.
+            Share API keys and access tokens securely with your team using
+            self-destructing links. Prevent credential exposure in chat logs,
+            email archives, and collaboration tools.
           </p>
         </div>
 
@@ -145,43 +145,43 @@ export default function APIKeysPage() {
 
         <div className="bg-blue-50 rounded-lg p-8 mb-12">
           <h2 className="text-2xl font-bold mb-4">
-            Why Not Use Email or Slack?
+            Why Traditional Tools Fall Short
           </h2>
           <div className="grid md:grid-cols-3 gap-6">
             <div>
               <h3 className="font-semibold mb-2 flex items-center text-red-600">
                 <Mail className="h-5 w-5 mr-2" />
-                Email Problems
+                Email Risks
               </h3>
               <ul className="text-gray-700 space-y-1 text-sm">
-                <li>• Permanent record in archives</li>
-                <li>• Forwarded accidentally</li>
-                <li>• Searchable forever</li>
-                <li>• No access control</li>
+                <li>• Permanent archive retention</li>
+                <li>• Accidental forwarding</li>
+                <li>• Searchable by all recipients</li>
+                <li>• No credential revocation</li>
               </ul>
             </div>
             <div>
               <h3 className="font-semibold mb-2 flex items-center text-red-600">
                 <MessageSquare className="h-5 w-5 mr-2" />
-                Slack Problems
+                Chat Platform Risks
               </h3>
               <ul className="text-gray-700 space-y-1 text-sm">
-                <li>• Chat history persists</li>
-                <li>• Screenshots can be taken</li>
-                <li>• Searchable by team members</li>
-                <li>• No expiration</li>
+                <li>• Indefinite chat history</li>
+                <li>• Easy screenshot sharing</li>
+                <li>• Team-wide keyword search</li>
+                <li>• No link expiration</li>
               </ul>
             </div>
             <div>
               <h3 className="font-semibold mb-2 flex items-center text-green-600">
                 <CheckCircle className="h-5 w-5 mr-2" />
-                SnapPwd Solution
+                SnapPwd Difference
               </h3>
               <ul className="text-gray-700 space-y-1 text-sm">
-                <li>• One-time access only</li>
-                <li>• Auto-destruction</li>
+                <li>• Single-use access links</li>
+                <li>• Automatic link destruction</li>
                 <li>• End-to-end encryption</li>
-                <li>• No permanent records</li>
+                <li>• Zero credential retention</li>
               </ul>
             </div>
           </div>
@@ -189,17 +189,17 @@ export default function APIKeysPage() {
 
         <div className="text-center">
           <h2 className="text-2xl font-bold mb-4">
-            Start Sharing API Keys Securely
+            Ready for Secure API Key Sharing?
           </h2>
           <p className="text-gray-600 mb-6">
-            Protect your API keys and prevent credential exposure with
-            self-destructing links.
+            Stop worrying about API keys in chat history and email archives.
+            Share credentials securely with self-destructing links in seconds.
           </p>
           <a
             href="/"
             className="inline-flex items-center px-6 py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
           >
-            Share API Key Now
+            Securely Share an API Key Now
           </a>
         </div>
       </div>
