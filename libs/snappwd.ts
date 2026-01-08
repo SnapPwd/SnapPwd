@@ -1,6 +1,5 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
 import shortUUID from "short-uuid";
 import { redisClient } from "./redis-client";
 
@@ -31,8 +30,6 @@ export async function storeEncryptedSecret(
  * @returns
  */
 export async function getEncryptedSecret(secretId: string) {
-  revalidatePath("/");
-
   const matchStorageKey = secretId.match(/sp-[a-zA-Z1-9]+/);
   if (matchStorageKey && matchStorageKey.length === 1) {
     const storageKey = matchStorageKey[0];

@@ -3,6 +3,12 @@
 const BASE58_ALPHABET =
   "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz";
 
+// Precomputed lookup table for O(1) character-to-value conversion
+const BASE58_MAP: Record<string, number> = {};
+for (let i = 0; i < BASE58_ALPHABET.length; i++) {
+  BASE58_MAP[BASE58_ALPHABET[i]] = i;
+}
+
 /**
  * Encode a Uint8Array to base58 string
  */
@@ -38,9 +44,9 @@ export function base58Encode(bytes: Uint8Array): string {
  */
 export function base58Decode(str: string): Uint8Array {
   const bytes = [0];
-  for (const char of str) {
-    const value = BASE58_ALPHABET.indexOf(char);
-    if (value === -1) throw new Error("Invalid base58 character");
+  for (let c = 0; c < str.length; c++) {
+    const value = BASE58_MAP[str[c]];
+    if (value === undefined) throw new Error("Invalid base58 character");
     let carry = value;
     for (let i = 0; i < bytes.length; i++) {
       carry += bytes[i] * 58;
@@ -142,10 +148,15 @@ export async function encryptData(
   result.set(iv);
   result.set(new Uint8Array(encryptedData), iv.length);
 
-  // Convert Uint8Array to string without using spread operator
+  // Convert Uint8Array to base64 using chunked String.fromCharCode for better performance
+  const CHUNK_SIZE = 0x8000; // 32KB chunks to avoid stack overflow
   let binaryString = "";
-  for (let i = 0; i < result.length; i++) {
-    binaryString += String.fromCharCode(result[i]);
+  for (let i = 0; i < result.length; i += CHUNK_SIZE) {
+    const chunk = result.subarray(i, Math.min(i + CHUNK_SIZE, result.length));
+    binaryString += String.fromCharCode.apply(
+      null,
+      chunk as unknown as number[]
+    );
   }
 
   return btoa(binaryString);
