@@ -1,44 +1,27 @@
 # SnapPwd
 
-SnapPwd is a Next.js web app inspired by [snappass](https://github.com/pinterest/snappass). It allows you to securely share passwords and secrets.
+SnapPwd allows you to securely share passwords and secrets with end-to-end encryption.
 
 ## How it works
 
-Each secret content is encrypted using a random 128-bit key. The encrypted secret is stored in a KV store, and a shareable link containing the secret ID is generated.
+SnapPwd implements end-to-end encryption through a client-side encryption approach:
 
-Secret links contain a storage key in the path and a decryption key in the URL fragment.
+1. **Client-Side Encryption**: When you create a secret, it's encrypted in your browser using the Web Crypto API before ever being sent to the server. A random 128-bit AES key and initialization vector are generated for each secret.
 
-Storage keys follow the format `sp-<shortUUID>`:
+2. **Secure Storage**: Only the encrypted data is stored in Redis. The server never sees or stores the original plaintext or the encryption keys.
 
-1. `sp-<shortUUID>` is used as the key in the KV store, with the encrypted secret content as the corresponding value.
-2. The decryption key is used to decrypt data retrieved from the KV store and is carried client-side in the URL fragment (hash).
+3. **Key Distribution**: The decryption key is embedded in the URL fragment (the part after #) that you share. This ensures the key never passes through the server.
 
-SnapPwd never stores the encryption/decryption keys of secrets.
+4. **One-Time Access**: When a recipient opens the link, their browser fetches the encrypted data, extracts the key from the URL fragment, and decrypts the content locally. The encrypted data is immediately deleted from the server.
 
-### End-to-End Encryption
+5. **Self-Destruction**: Links expire after the configured time or immediately after first access, ensuring secrets can't be retrieved again.
 
-SnapPwd uses true end-to-end encryption to protect your secrets:
+This architecture means:
 
-1. **Client-Side Encryption**: All encryption and decryption happens entirely in your browser using the Web Crypto API.
-
-   - A random 128-bit (16-byte) AES key is generated using `window.crypto.getRandomValues()`
-   - The secret is encrypted using AES-GCM with a random 12-byte initialization vector (IV)
-   - The encrypted data and IV are combined and encoded as a base64 string
-
-2. **Server-Side Storage**: The server only receives and stores the already-encrypted data.
-
-   - The server never sees the original plaintext secret
-   - The server never has access to the encryption key
-   - The encryption key is only included in the URL fragment that's shared
-
-3. **Secure Retrieval**: When a recipient opens the secret URL:
-
-   - The encrypted data is fetched from the server
-   - The decryption key is extracted from the URL
-   - Decryption happens locally in the recipient's browser
-   - The encrypted secret is immediately deleted from the server after being retrieved
-
-This approach ensures that even if the server or database is compromised, the attacker cannot decrypt any stored secrets without the unique decryption keys that only exist in the shared URLs.
+- The server can never decrypt your secrets
+- Secrets are automatically deleted after access
+- No registration or personal data required
+- End-to-end security regardless of hosting environment
 
 ## Dev setup
 
@@ -58,11 +41,11 @@ REDIS_TLS=false
 Install dependencies:
 
 ```
-npm install
+pnpm install
 ```
 
 Start dev server:
 
 ```
-npm run dev
+pnpm run dev
 ```
