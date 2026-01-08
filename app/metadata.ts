@@ -61,9 +61,17 @@ export const baseMetadata: Metadata = {
     googleBot: {
       index: true,
       follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  alternates: {
+    canonical: "/",
+    languages: {
+      en: "/",
+      "en-US": "/",
+      "en-GB": "/",
     },
   },
 };

@@ -7,6 +7,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const aboutLastModified = new Date("2025-07-09");
   const privacyLastModified = new Date("2025-07-09");
   const termsLastModified = new Date("2025-07-09");
+  const faqLastModified = new Date("2025-08-04");
 
   return [
     {
@@ -18,6 +19,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     {
       url: `${baseUrl}/about`,
       lastModified: aboutLastModified,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/faq`,
+      lastModified: faqLastModified,
       changeFrequency: "monthly",
       priority: 0.8,
     },
