@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   ...baseMetadata,
   title: "FAQ | SnapPwd",
   description:
-    "Frequently asked questions about SnapPwd's secure password sharing service. Learn how our encryption works, security features, and usage guidelines.",
+    "Frequently asked questions about SnapPwd's secure password sharing service. Learn how to share .env files, API keys, and developer secrets securely with your team.",
   keywords: [
     "FAQ",
     "frequently asked questions",
@@ -18,6 +18,13 @@ export const metadata: Metadata = {
     "security questions",
     "SnapPwd help",
     "password sharing guide",
+    "share .env files",
+    "environment variables sharing",
+    "API key sharing",
+    "database credentials sharing",
+    "developer secrets",
+    "team collaboration security",
+    "onboarding credentials",
   ],
   alternates: {
     canonical: "/faq",
@@ -74,6 +81,26 @@ const faqData = [
     question: "Can I use SnapPwd for business purposes?",
     answer:
       "Yes, SnapPwd can be used for both personal and business purposes. Many teams use it to share credentials, API keys, and other sensitive information securely.",
+  },
+  {
+    question: "How can I share .env files securely with my team?",
+    answer:
+      "SnapPwd is perfect for sharing .env files and environment variables securely. Instead of emailing .env files or posting them in chat, copy the content and create a secret link. The link expires after one access, ensuring your environment variables aren't accidentally exposed to unauthorized team members.",
+  },
+  {
+    question: "Is SnapPwd good for sharing API keys and database credentials?",
+    answer:
+      "Absolutely! SnapPwd is ideal for sharing API keys, database credentials, and other development secrets. The one-time access nature ensures that sensitive credentials aren't left lingering in chat logs or emails where they could be discovered later.",
+  },
+  {
+    question: "Can developers use SnapPwd for onboarding new team members?",
+    answer:
+      "Yes, SnapPwd is excellent for developer onboarding. You can securely share access credentials, API keys, configuration files, and other sensitive setup information with new team members. The self-destructing links ensure that access credentials are automatically cleaned up after use.",
+  },
+  {
+    question: "How does SnapPwd compare to other methods for sharing secrets?",
+    answer:
+      "Unlike email, Slack, or other messaging apps where secrets persist forever, SnapPwd links self-destruct after access. This eliminates the risk of old credentials being discovered in chat history. Plus, with end-to-end encryption, even our servers can't access your data.",
   },
 ];
 

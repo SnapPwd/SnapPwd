@@ -25,6 +25,12 @@ export const baseMetadata: Metadata = {
     "secure communication",
     "privacy protection",
     "data security",
+    "share .env files",
+    "environment variables sharing",
+    "API key sharing",
+    "developer secrets",
+    "team collaboration security",
+    "database credentials sharing",
   ],
   authors: [{ name: "SnapPwd Team" }],
   creator: "SnapPwd",
@@ -36,7 +42,7 @@ export const baseMetadata: Metadata = {
   openGraph: {
     type: "website",
     siteName: "SnapPwd",
-    title: "SnapPwd - Secure Password Sharing",
+    title: "SnapPwd - Secure Password and Secrets Sharing",
     description:
       "Share sensitive information securely with self-destructing links",
     images: [
@@ -44,15 +50,15 @@ export const baseMetadata: Metadata = {
         url: "/og-image.png", // You'll need to create this image
         width: 1200,
         height: 630,
-        alt: "SnapPwd - Secure Password Sharing",
+        alt: "SnapPwd - Secure Password and Secrets Sharing",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "SnapPwd - Secure Password Sharing",
+    title: "SnapPwd - Secure Password and Secrets Sharing",
     description:
-      "Share sensitive information securely with self-destructing links",
+      "Share passwords, secrets, API keys, and .env files securely with self-destructing links. Perfect for developer teams and onboarding.",
     images: ["/og-image.png"], // Same as OpenGraph image
   },
   robots: {
