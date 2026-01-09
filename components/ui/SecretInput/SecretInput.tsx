@@ -1,7 +1,12 @@
 import { Textarea } from "@/components/ui/textarea";
 import { FaLock } from "react-icons/fa6";
+import React from "react";
 
-export default function SecretInput() {
+interface SecretInputProps {
+  onChange?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+}
+
+export default function SecretInput({ onChange }: SecretInputProps) {
   return (
     <div className="flex flex-row">
       <div className="flex items-center min-h-[200px] px-2 bg-gray-300 rounded-l-md border border-slate-400 border-r-transparent">
@@ -13,6 +18,7 @@ export default function SecretInput() {
         name="secret"
         required
         placeholder="SnapPwd allows you to share secrets in a secure, ephemeral way. Input a single or multi-line secret, its expiration time, and click Generate Link. Share the one-time use URL with your intended recipient."
+        onChange={onChange}
       />
     </div>
   );
