@@ -83,6 +83,7 @@ export default function SecretInput({ onChange }: SecretInputProps) {
   const [isGenerating, setIsGenerating] = useState(false);
   const [showConfig, setShowConfig] = useState(false);
   const [isCopied, setIsCopied] = useState(false);
+  const [hasContent, setHasContent] = useState(false);
   const [passwordConfig, setPasswordConfig] = useState<PasswordConfig>({
     length: 24,
     useUppercase: true,
@@ -111,17 +112,27 @@ export default function SecretInput({ onChange }: SecretInputProps) {
     setTimeout(() => {
       if (textareaRef.current) {
         textareaRef.current.value = newPassword;
+        setHasContent(true);
         // Trigger the onChange handler if it exists
         if (onChange) {
-          const syntheticEvent = {
-            target: textareaRef.current,
-            currentTarget: textareaRef.current,
-          } as React.ChangeEvent<HTMLTextAreaElement>;
-          onChange(syntheticEvent);
+          // Create a proper synthetic event with the textarea element
+          const event = new Event('change', { bubbles: true });
+          Object.defineProperty(event, 'target', {
+            writable: false,
+            value: textareaRef.current
+          });
+          onChange(event as any as React.ChangeEvent<HTMLTextAreaElement>);
         }
       }
       setIsGenerating(false);
     }, 300);
+  };
+
+  const handleTextareaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setHasContent(e.target.value.length > 0);
+    if (onChange) {
+      onChange(e);
+    }
   };
 
   const getPasswordDescription = () => {
@@ -168,13 +179,13 @@ export default function SecretInput({ onChange }: SecretInputProps) {
             name="secret"
             required
             placeholder="Enter your secret here... passwords, API keys, credentials, or any sensitive data you need to share securely."
-            onChange={onChange}
+            onChange={handleTextareaChange}
             onFocus={() => setIsFocused(true)}
             onBlur={() => setIsFocused(false)}
           />
 
           {/* Copy button in bottom right corner */}
-          {textareaRef.current?.value && (
+          {hasContent && (
             <button
               type="button"
               onClick={handleCopy}

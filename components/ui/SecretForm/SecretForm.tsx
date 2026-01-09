@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import SecretInput from "@/components/ui/SecretInput";
-import { Loader2 } from "lucide-react";
+import { Loader2, Clock, Link2 } from "lucide-react";
 import { storeEncryptedSecret, getMaxSecretSize } from "@/app/actions";
 import { encryptData, generateEncryptionKey } from "@/libs/client-crypto";
 import { useState, useEffect, FormEvent } from "react";
@@ -14,6 +14,7 @@ export default function SecretForm() {
     display: "1MB",
   });
   const [secretLength, setSecretLength] = useState(0);
+  const [secretCharCount, setSecretCharCount] = useState(0);
 
   // Fetch max size configuration on mount
   useEffect(() => {
@@ -95,11 +96,11 @@ export default function SecretForm() {
     const value = e.target.value;
     const sizeBytes = new TextEncoder().encode(value).length;
     setSecretLength(sizeBytes);
+    setSecretCharCount(value.length);
   };
 
   // Calculate approximate character limit (assuming average 1.5 bytes per character for UTF-8)
   const maxChars = Math.floor(maxSize.bytes / 1.5);
-  const currentChars = secretLength > 0 ? Math.ceil(secretLength / 1.5) : 0;
 
   return (
     <form
@@ -115,7 +116,7 @@ export default function SecretForm() {
         <div className="mt-3 flex items-center justify-between text-xs">
           <div className="flex items-center gap-2">
             <span className="text-slate-600 font-medium">
-              {currentChars.toLocaleString()}
+              {secretCharCount.toLocaleString()}
             </span>
             <span className="text-slate-400">/</span>
             <span className="text-slate-500">
@@ -131,7 +132,7 @@ export default function SecretForm() {
           >
             {secretLength > maxSize.bytes
               ? "Exceeds size limit"
-              : `${(maxChars - currentChars).toLocaleString()} remaining`}
+              : `${(maxChars - secretCharCount).toLocaleString()} remaining`}
           </span>
         </div>
       </div>
@@ -140,7 +141,8 @@ export default function SecretForm() {
       <div className="flex flex-col gap-6 w-full lg:w-64">
         {/* Expiration selector with modern design */}
         <div className="flex flex-col gap-3">
-          <label htmlFor="expiration" className="text-sm font-semibold text-slate-700">
+          <label htmlFor="expiration" className="text-sm font-semibold text-slate-700 flex items-center gap-2">
+            <Clock className="h-4 w-4" />
             Link Expiration
           </label>
           <select
@@ -161,7 +163,7 @@ export default function SecretForm() {
         {/* Generate button with modern styling */}
         <Button
           size="lg"
-          className="bg-slate-900 hover:bg-slate-800 text-white shadow-md hover:shadow-lg transition-all duration-200 font-semibold text-base h-12"
+          className="bg-slate-900 hover:bg-slate-800 text-white shadow-md hover:shadow-lg transition-all duration-200 text-base h-12"
           type="submit"
           disabled={isSubmitting || secretLength > maxSize.bytes}
         >
@@ -171,7 +173,10 @@ export default function SecretForm() {
               Creating Link...
             </>
           ) : (
-            "Generate Secure Link"
+            <>
+              <Link2 className="mr-2 h-5 w-5" />
+              Generate Secure Link
+            </>
           )}
         </Button>
 
