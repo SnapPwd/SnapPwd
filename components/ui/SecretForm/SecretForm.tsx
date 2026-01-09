@@ -103,32 +103,48 @@ export default function SecretForm() {
 
   return (
     <form
-      className="flex flex-col md:flex-row w-full gap-6 md:gap-8"
+      className="flex flex-col lg:flex-row w-full gap-8"
       id="generateUrl"
       onSubmit={handleSubmit}
     >
-      <div className="md:flex-1">
+      {/* Left side - Secret Input */}
+      <div className="flex-1">
         <SecretInput onChange={handleSecretChange} />
-        <div className="mt-2 text-xs text-gray-500 flex justify-between">
-          <span>
-            {currentChars.toLocaleString()} / ~{maxChars.toLocaleString()}{" "}
-            characters
-          </span>
+
+        {/* Character counter with modern styling */}
+        <div className="mt-3 flex items-center justify-between text-xs">
+          <div className="flex items-center gap-2">
+            <span className="text-slate-600 font-medium">
+              {currentChars.toLocaleString()}
+            </span>
+            <span className="text-slate-400">/</span>
+            <span className="text-slate-500">
+              ~{maxChars.toLocaleString()} characters
+            </span>
+          </div>
           <span
-            className={
-              secretLength > maxSize.bytes ? "text-red-600 font-semibold" : ""
-            }
+            className={`font-medium transition-colors ${
+              secretLength > maxSize.bytes
+                ? "text-red-600"
+                : "text-slate-600"
+            }`}
           >
             {secretLength > maxSize.bytes
-              ? `Exceeds size limit`
-              : `${(maxChars - currentChars).toLocaleString()} characters remaining`}
+              ? "Exceeds size limit"
+              : `${(maxChars - currentChars).toLocaleString()} remaining`}
           </span>
         </div>
       </div>
-      <div className="grid grid-cols-2 md:grid-cols-1 w-full md:max-w-[160px] gap-4 md:gap-0">
-        <div className="flex flex-col gap-2 w-full">
+
+      {/* Right side - Settings & Action */}
+      <div className="flex flex-col gap-6 w-full lg:w-64">
+        {/* Expiration selector with modern design */}
+        <div className="flex flex-col gap-3">
+          <label htmlFor="expiration" className="text-sm font-semibold text-slate-700">
+            Link Expiration
+          </label>
           <select
-            className="border border-slate-400 rounded-md p-2 w-full"
+            className="border border-slate-300 rounded-lg p-3 w-full bg-white hover:border-slate-400 focus:border-slate-500 focus:ring-2 focus:ring-slate-500/20 transition-all outline-none text-sm font-medium cursor-pointer"
             name="expiration"
             id="expiration"
           >
@@ -137,23 +153,43 @@ export default function SecretForm() {
             <option value="one_week">1 week</option>
             <option value="two_weeks">2 weeks</option>
           </select>
-          <p className="text-xs text-gray-500 w-full text-left">
-            After this time, the secret will be permanently deleted
+          <p className="text-xs text-slate-500 leading-relaxed">
+            Your secret will be permanently deleted after this time period
           </p>
         </div>
+
+        {/* Generate button with modern styling */}
         <Button
-          variant="outline"
           size="lg"
-          className="bg-black text-white w-full"
+          className="bg-slate-900 hover:bg-slate-800 text-white shadow-md hover:shadow-lg transition-all duration-200 font-semibold text-base h-12"
           type="submit"
           disabled={isSubmitting || secretLength > maxSize.bytes}
         >
           {isSubmitting ? (
-            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+            <>
+              <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+              Creating Link...
+            </>
           ) : (
-            "Generate Link"
+            "Generate Secure Link"
           )}
         </Button>
+
+        {/* Security features badge */}
+        <div className="flex flex-col gap-2 p-4 bg-slate-50 rounded-lg border border-slate-200">
+          <div className="flex items-center gap-2 text-xs text-slate-600">
+            <div className="h-1.5 w-1.5 rounded-full bg-slate-400" />
+            <span>One-time access only</span>
+          </div>
+          <div className="flex items-center gap-2 text-xs text-slate-600">
+            <div className="h-1.5 w-1.5 rounded-full bg-slate-400" />
+            <span>Auto-expires after time limit</span>
+          </div>
+          <div className="flex items-center gap-2 text-xs text-slate-600">
+            <div className="h-1.5 w-1.5 rounded-full bg-slate-400" />
+            <span>End-to-end encrypted</span>
+          </div>
+        </div>
       </div>
     </form>
   );
