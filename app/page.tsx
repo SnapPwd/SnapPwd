@@ -1,5 +1,5 @@
 import SecretForm from "@/components/ui/SecretForm";
-import { Shield, Clock, Lock, RefreshCw } from "lucide-react";
+import { Shield, Clock, RefreshCw } from "lucide-react";
 import FAQSection from "../components/ui/FAQSection";
 
 export const metadata = {
@@ -37,18 +37,14 @@ export default function Home() {
       {/* Hero Section */}
       <section className="pt-16 pb-12">
         <div className="max-w-6xl mx-auto px-6 text-center">
-          <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-500">
+          <h1 className="text-5xl md:text-5xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-500">
             Share Secrets Securely
           </h1>
           <p className="text-xl md:text-2xl text-gray-600 mb-8 max-w-3xl mx-auto">
-            SnapPwd lets you share passwords and sensitive information with
-            end-to-end encryption. Your secrets never leave your browser
-            unencrypted.
+            Share passwords and sensitive information with end-to-end
+            encryption. Your secrets never leave your browser unencrypted.
           </p>
           <div className="bg-white p-8 rounded-xl shadow-lg border border-gray-100 max-w-6xl mx-auto">
-            <h2 className="text-2xl font-bold mb-6 flex items-center justify-center">
-              <Lock className="h-5 w-5 mr-2" /> Create Your Secure Link
-            </h2>
             <SecretForm />
           </div>
         </div>

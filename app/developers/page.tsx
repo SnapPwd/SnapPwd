@@ -4,7 +4,7 @@ import { baseMetadata } from "../metadata";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import DeveloperStructuredData from "@/components/ui/DeveloperStructuredData";
 import SecretForm from "@/components/ui/SecretForm";
-import { Shield, Key, Database, Users, Lock, Zap, Trash2 } from "lucide-react";
+import { Shield, Key, Database, Users, Zap, Trash2 } from "lucide-react";
 
 export const metadata: Metadata = {
   ...baseMetadata,
@@ -95,10 +95,7 @@ export default function DeveloperPage() {
           </p>
         </div>
 
-        <div className="bg-white p-8 rounded-xl shadow-lg border border-gray-100 max-w-4xl mx-auto mb-12">
-          <h2 className="text-2xl font-bold mb-6 text-center flex items-center justify-center">
-            <Lock className="h-5 w-5 mr-2" /> Share Your Development Secret
-          </h2>
+        <div className="bg-white p-8 rounded-xl shadow-lg border border-gray-100 max-w-6xl mx-auto mb-12">
           <SecretForm />
         </div>
 
@@ -135,7 +132,7 @@ export default function DeveloperPage() {
           <div className="grid md:grid-cols-3 gap-6">
             <div>
               <h3 className="font-semibold mb-2 flex items-center">
-                <Lock className="h-5 w-5 mr-2 text-blue-600" />
+                <Shield className="h-5 w-5 mr-2 text-blue-600" />
                 Zero-Knowledge Architecture
               </h3>
               <p className="text-gray-700">

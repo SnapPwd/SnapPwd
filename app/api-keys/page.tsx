@@ -100,14 +100,11 @@ export default function APIKeysPage() {
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
             Share API keys and access tokens securely with your team using
             self-destructing links. Prevent credential exposure in chat logs,
-            email archives, and collaboration tools.
+            email, and collaboration tools.
           </p>
         </div>
 
-        <div className="bg-white p-8 rounded-xl shadow-lg border border-gray-100 max-w-4xl mx-auto mb-12">
-          <h2 className="text-2xl font-bold mb-6 text-center flex items-center justify-center">
-            <Key className="h-5 w-5 mr-2" /> Share Your API Key Securely
-          </h2>
+        <div className="bg-white p-8 rounded-xl shadow-lg border border-gray-100 max-w-6xl mx-auto mb-12">
           <SecretForm />
         </div>
 
