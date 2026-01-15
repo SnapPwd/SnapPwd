@@ -6,14 +6,11 @@ import SecretLinkResult from "@/components/ui/SecretLinkResult";
 import { Loader2, Clock, Link2, Lock } from "lucide-react";
 import { storeEncryptedSecret, getMaxSecretSize } from "@/app/actions";
 import { encryptData, generateEncryptionKey } from "@/libs/client-crypto";
-import { useState, useEffect, FormEvent, useRef } from "react";
-
-const EXPIRATION_OPTIONS = [
-  { value: "one_hour", label: "1 hour" },
-  { value: "one_day", label: "1 day" },
-  { value: "one_week", label: "1 week" },
-  { value: "two_weeks", label: "2 weeks" },
-] as const;
+import { useState, useEffect, FormEvent, useRef, useCallback } from "react";
+import {
+  EXPIRATION_OPTIONS,
+  ExpirationValue,
+} from "@/libs/constants";
 
 export default function SecretForm() {
   const formRef = useRef<HTMLFormElement>(null);
@@ -23,12 +20,15 @@ export default function SecretForm() {
     display: "1MB",
   });
   const [secretLength, setSecretLength] = useState(0);
-  const [secretCharCount, setSecretCharCount] = useState(0);
   const [generatedUrl, setGeneratedUrl] = useState<string>("");
-  const [selectedExpiration, setSelectedExpiration] = useState("one_hour");
+  const [selectedExpiration, setSelectedExpiration] =
+    useState<ExpirationValue>("one_hour");
 
   // Derive isFlipped from generatedUrl
   const isFlipped = generatedUrl !== "";
+
+  // Derive character count from byte length (approximate)
+  const secretCharCount = Math.ceil(secretLength / 1.5);
 
   // Fetch max size configuration on mount
   useEffect(() => {
@@ -63,11 +63,10 @@ export default function SecretForm() {
         return;
       }
 
+      const validExpirations = EXPIRATION_OPTIONS.map((o) => o.value);
       if (
         typeof expirationValue !== "string" ||
-        !["one_hour", "one_day", "one_week", "two_weeks"].includes(
-          expirationValue
-        )
+        !validExpirations.includes(expirationValue as ExpirationValue)
       ) {
         alert("Please select a valid expiration.");
         setIsSubmitting(false);
@@ -106,20 +105,21 @@ export default function SecretForm() {
     }
   };
 
-  const handleCreateAnother = () => {
+  const handleCreateAnother = useCallback(() => {
     setGeneratedUrl("");
     setSecretLength(0);
-    setSecretCharCount(0);
     setSelectedExpiration("one_hour");
     formRef.current?.reset();
-  };
+  }, []);
 
-  const handleSecretChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const value = e.target.value;
-    const sizeBytes = new TextEncoder().encode(value).length;
-    setSecretLength(sizeBytes);
-    setSecretCharCount(value.length);
-  };
+  const handleSecretChange = useCallback(
+    (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+      const value = e.target.value;
+      const sizeBytes = new TextEncoder().encode(value).length;
+      setSecretLength(sizeBytes);
+    },
+    []
+  );
 
   // Calculate approximate character limit (assuming average 1.5 bytes per character for UTF-8)
   const maxChars = Math.floor(maxSize.bytes / 1.5);
@@ -190,7 +190,9 @@ export default function SecretForm() {
                 name="expiration"
                 id="expiration"
                 value={selectedExpiration}
-                onChange={(e) => setSelectedExpiration(e.target.value)}
+                onChange={(e) =>
+                  setSelectedExpiration(e.target.value as ExpirationValue)
+                }
               >
                 {EXPIRATION_OPTIONS.map(({ value, label }) => (
                   <option key={value} value={value}>

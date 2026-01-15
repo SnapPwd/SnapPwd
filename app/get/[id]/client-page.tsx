@@ -97,6 +97,8 @@ export function SecretDisplay({
             isDecrypting ? "Decrypting..." : error ? error : decryptedSecret
           }
           readOnly
+          aria-live="polite"
+          aria-busy={isDecrypting}
         />
         <p className="py-4">
           The secret has now been permanently deleted from the system, and the

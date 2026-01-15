@@ -6,13 +6,10 @@ import {
   MAX_SECRET_SIZE_BYTES,
   getMaxSecretSizeDisplay,
 } from "@/libs/config";
-
-const expirationOptions = {
-  one_hour: 3600,
-  one_day: 86400,
-  one_week: 604800,
-  two_weeks: 1209600,
-};
+import {
+  EXPIRATION_SECONDS,
+  ExpirationValue,
+} from "@/libs/constants";
 
 /**
  * Get the maximum secret size configuration
@@ -30,9 +27,9 @@ export async function storeEncryptedSecret(
   encryptedSecret: string,
   expiration: string
 ) {
-  const expirationKey = expiration.toString() as keyof typeof expirationOptions;
+  const expirationKey = expiration as ExpirationValue;
 
-  if (!(expirationKey in expirationOptions)) {
+  if (!(expirationKey in EXPIRATION_SECONDS)) {
     throw new Error("Invalid expiration");
   }
 
@@ -54,7 +51,7 @@ export async function storeEncryptedSecret(
   // Store the already-encrypted secret
   const storageKey = await storeSecret(
     encryptedSecret,
-    expirationOptions[expirationKey]
+    EXPIRATION_SECONDS[expirationKey]
   );
 
   // Return just the storage key - the encryption key stays client-side only

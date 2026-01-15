@@ -2,46 +2,59 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useMemo } from "react";
 
 export default function Breadcrumbs() {
   const pathname = usePathname();
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL;
 
+  const breadcrumbItems = useMemo(() => {
+    if (pathname === "/") {
+      return null;
+    }
+
+    const pathSegments = pathname.split("/").filter((segment) => segment);
+
+    return [
+      { name: "Home", href: "/" },
+      ...pathSegments.map((segment, index) => {
+        const href = "/" + pathSegments.slice(0, index + 1).join("/");
+        const name = segment.charAt(0).toUpperCase() + segment.slice(1);
+        return { name, href };
+      }),
+    ];
+  }, [pathname]);
+
+  const structuredData = useMemo(() => {
+    if (!breadcrumbItems) return null;
+
+    return {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: breadcrumbItems.map((item, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        name: item.name,
+        item: `${baseUrl}${item.href}`,
+      })),
+    };
+  }, [breadcrumbItems, baseUrl]);
+
   // Don't show breadcrumbs on homepage
-  if (pathname === "/") {
+  if (!breadcrumbItems) {
     return null;
   }
 
-  const pathSegments = pathname.split("/").filter((segment) => segment);
-
-  const breadcrumbItems = [
-    { name: "Home", href: "/" },
-    ...pathSegments.map((segment, index) => {
-      const href = "/" + pathSegments.slice(0, index + 1).join("/");
-      const name = segment.charAt(0).toUpperCase() + segment.slice(1);
-      return { name, href };
-    }),
-  ];
-
-  const structuredData = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: breadcrumbItems.map((item, index) => ({
-      "@type": "ListItem",
-      position: index + 1,
-      name: item.name,
-      item: `${baseUrl}${item.href}`,
-    })),
-  };
-
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(structuredData),
-        }}
-      />
+      {structuredData && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(structuredData),
+          }}
+        />
+      )}
       <nav className="mb-6" aria-label="Breadcrumb">
         <ol className="flex items-center space-x-2 text-sm text-gray-600">
           {breadcrumbItems.map((item, index) => (
