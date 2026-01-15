@@ -1,8 +1,9 @@
 import s from "./Navbar.module.css";
 import Logo from "@/components/icons/Logo";
 import Link from "next/link";
+import ThemeToggle from "@/components/ui/ThemeToggle";
 
-export default async function Navbar() {
+export default function Navbar() {
   return (
     <nav className={s.root}>
       <a href="#skip" className="sr-only focus:not-sr-only">
@@ -18,35 +19,36 @@ export default async function Navbar() {
               <span className="px-2">SnapPwd</span>
             </Link>
           </div>
-          <div className="flex items-center space-x-6">
+          <div className="flex items-center space-x-4">
             {process.env.SHOW_LEGAL_PAGES === "true" && (
               <>
                 <Link
                   href="/about"
-                  className="text-gray-600 hover:text-gray-900 transition-colors"
+                  className="text-muted-foreground hover:text-foreground transition-colors"
                 >
                   About
                 </Link>
                 <Link
                   href="/faq"
-                  className="text-gray-600 hover:text-gray-900 transition-colors"
+                  className="text-muted-foreground hover:text-foreground transition-colors"
                 >
                   FAQ
                 </Link>
                 <Link
                   href="/privacy"
-                  className="text-gray-600 hover:text-gray-900 transition-colors"
+                  className="text-muted-foreground hover:text-foreground transition-colors"
                 >
                   Privacy
                 </Link>
                 <Link
                   href="/terms"
-                  className="text-gray-600 hover:text-gray-900 transition-colors"
+                  className="text-muted-foreground hover:text-foreground transition-colors"
                 >
                   Terms
                 </Link>
               </>
             )}
+            <ThemeToggle />
           </div>
         </div>
       </div>

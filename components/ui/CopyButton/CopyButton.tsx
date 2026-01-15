@@ -8,7 +8,7 @@ export default function CopyButton({ text }: { text: string }) {
 
   return (
     <Button
-      className="text-white w-24 bg-black hover:bg-gray-600"
+      className="w-24 bg-primary hover:bg-primary/90 text-primary-foreground"
       onClick={() => copy(text)}
       aria-label={isCopied ? "Copied to clipboard" : "Copy to clipboard"}
     >

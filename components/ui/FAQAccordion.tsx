@@ -24,17 +24,17 @@ export default function FAQAccordion({ items }: { items: FAQItemProps[] }) {
         return (
           <div
             key={index}
-            className="rounded-lg shadow-sm border border-gray-100"
+            className="rounded-lg shadow-sm border border-border bg-card"
           >
             <button
-              className="w-full px-6 py-4 text-left flex justify-between items-center hover:bg-gray-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-500 focus-visible:ring-offset-2 rounded-lg"
+              className="w-full px-6 py-4 text-left flex justify-between items-center hover:bg-accent focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-lg"
               onClick={() => toggleItem(index)}
               aria-expanded={isOpen}
               aria-controls={contentId}
             >
-              <span className="font-semibold text-gray-900">{item.question}</span>
+              <span className="font-semibold text-card-foreground">{item.question}</span>
               <ChevronDown
-                className={`h-5 w-5 text-gray-500 transform transition-transform ${
+                className={`h-5 w-5 text-muted-foreground transform transition-transform ${
                   isOpen ? "rotate-180" : ""
                 }`}
                 aria-hidden="true"
@@ -48,7 +48,7 @@ export default function FAQAccordion({ items }: { items: FAQItemProps[] }) {
             >
               {isOpen && (
                 <div className="px-6 pt-2 pb-4">
-                  <p className="text-gray-600">{item.answer}</p>
+                  <p className="text-muted-foreground">{item.answer}</p>
                 </div>
               )}
             </div>

@@ -30,12 +30,16 @@ export default function TermsPage() {
       <TermsStructuredData />
       <div className="max-w-4xl mx-auto px-6">
         <Breadcrumbs />
-        <h1 className="text-4xl font-bold mb-8">Terms of Service</h1>
+        <h1 className="text-4xl font-bold mb-8 text-muted-foreground">
+          Terms of Service
+        </h1>
 
         <div className="prose prose-lg">
-          <p className="text-lg mb-6">Last updated: July 8, 2025</p>
+          <p className="text-lg mb-6 text-muted-foreground">
+            Last updated: July 8, 2025
+          </p>
 
-          <p>
+          <p className="text-muted-foreground">
             Please read these Terms of Service (&quot;Terms&quot;) carefully
             before using the SnapPwd service.
           </p>
@@ -43,7 +47,7 @@ export default function TermsPage() {
           <h2 className="text-2xl font-semibold mt-8 mb-4">
             1. Acceptance of Terms
           </h2>
-          <p>
+          <p className="text-muted-foreground">
             By accessing or using SnapPwd, you agree to be bound by these Terms.
             If you disagree with any part of the terms, you may not access the
             service.
@@ -52,7 +56,7 @@ export default function TermsPage() {
           <h2 className="text-2xl font-semibold mt-8 mb-4">
             2. Description of Service
           </h2>
-          <p>
+          <p className="text-muted-foreground">
             SnapPwd provides a secure way to share sensitive information through
             self-destructing links. The service encrypts your content in the
             browser and generates time-limited links that can be accessed only
@@ -62,8 +66,8 @@ export default function TermsPage() {
           <h2 className="text-2xl font-semibold mt-8 mb-4">
             3. User Responsibilities
           </h2>
-          <p>You are responsible for:</p>
-          <ul className="list-disc pl-6 my-4 space-y-2">
+          <p className="text-muted-foreground">You are responsible for:</p>
+          <ul className="list-disc pl-6 my-4 space-y-2 text-muted-foreground">
             <li>Maintaining the confidentiality of links you generate</li>
             <li>Ensuring you share links only with intended recipients</li>
             <li>
@@ -78,8 +82,10 @@ export default function TermsPage() {
           <h2 className="text-2xl font-semibold mt-8 mb-4">
             4. Prohibited Content
           </h2>
-          <p>You may not use SnapPwd to share:</p>
-          <ul className="list-disc pl-6 my-4 space-y-2">
+          <p className="text-muted-foreground">
+            You may not use SnapPwd to share:
+          </p>
+          <ul className="list-disc pl-6 my-4 space-y-2 text-muted-foreground">
             <li>Content that violates any applicable laws or regulations</li>
             <li>Malicious software or harmful code</li>
             <li>Content that infringes on intellectual property rights</li>
@@ -89,7 +95,7 @@ export default function TermsPage() {
           <h2 className="text-2xl font-semibold mt-8 mb-4">
             5. Limitation of Liability
           </h2>
-          <p>
+          <p className="text-muted-foreground">
             SnapPwd is provided &quot;as is&quot; without warranties of any
             kind. We are not liable for any damages arising from your use of the
             service or any inability to access or use the service.
@@ -98,7 +104,7 @@ export default function TermsPage() {
           <h2 className="text-2xl font-semibold mt-8 mb-4">
             6. Service Modifications
           </h2>
-          <p>
+          <p className="text-muted-foreground">
             We reserve the right to modify or discontinue the service
             temporarily or permanently at any time, with or without notice. We
             shall not be liable to you or any third party for any modification,
@@ -108,17 +114,17 @@ export default function TermsPage() {
           <h2 className="text-2xl font-semibold mt-8 mb-4">
             7. Changes to Terms
           </h2>
-          <p>
+          <p className="text-muted-foreground">
             We may revise these Terms at any time without notice. By continuing
             to use SnapPwd after any changes, you accept the revised Terms.
           </p>
 
           <h2 className="text-2xl font-semibold mt-8 mb-4">8. Contact Us</h2>
-          <p>
+          <p className="text-muted-foreground">
             If you have any questions about these Terms, please contact us at{" "}
             <a
               href={`mailto:${process.env.LEGAL_EMAIL || "legal@snappwd.io"}`}
-              className="text-blue-600 hover:underline"
+              className="text-muted-foreground hover:underline"
             >
               {process.env.LEGAL_EMAIL || "legal@snappwd.io"}
             </a>

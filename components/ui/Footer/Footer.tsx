@@ -3,7 +3,7 @@ import Link from "next/link";
 export default function Footer() {
   return (
     <footer className="">
-      <div className="flex flex-col text-white items-center justify-between py-4 space-y-4 bg-zinc-900">
+      <div className="flex flex-col items-center justify-between py-4 space-y-4 bg-muted text-muted-foreground border-t border-border">
         <div className="flex flex-col md:flex-row md:gap-1 items-center">
           <span>&copy; {new Date().getFullYear()} SnapPwd.</span>
           <span>
@@ -22,25 +22,25 @@ export default function Footer() {
             <>
               <Link
                 href="/about"
-                className="hover:text-gray-300 transition-colors"
+                className="hover:text-foreground transition-colors"
               >
                 About
               </Link>
               <Link
                 href="/faq"
-                className="hover:text-gray-300 transition-colors"
+                className="hover:text-foreground transition-colors"
               >
                 FAQ
               </Link>
               <Link
                 href="/privacy"
-                className="hover:text-gray-300 transition-colors"
+                className="hover:text-foreground transition-colors"
               >
                 Privacy Policy
               </Link>
               <Link
                 href="/terms"
-                className="hover:text-gray-300 transition-colors"
+                className="hover:text-foreground transition-colors"
               >
                 Terms of Service
               </Link>

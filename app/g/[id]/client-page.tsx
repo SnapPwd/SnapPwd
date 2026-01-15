@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button";
 import CopyButton from "@/components/ui/CopyButton";
 import { Textarea } from "@/components/ui/textarea";
+import { LockOpen } from "lucide-react";
 import { useState, useEffect } from "react";
 import { decryptData, isValidBase58Key } from "@/libs/client-crypto";
 
@@ -21,13 +22,13 @@ export function RevealForm({ id }: { id: string }) {
 
   return (
     <div>
-      <p className="text-2xl">You can only reveal the secret once!</p>
+      <p className="text-2xl text-foreground">You can only reveal the secret once!</p>
       <Button
-        variant="outline"
         size="lg"
-        className="mt-4 bg-black text-white w-[160px]"
+        className="mt-4 bg-primary hover:bg-primary/90 text-primary-foreground shadow-md hover:shadow-lg transition-all duration-200 text-base h-12"
         onClick={handleReveal}
       >
+        <LockOpen className="mr-2 h-4 w-4" />
         Reveal Secret
       </Button>
     </div>
@@ -92,7 +93,7 @@ export function SecretDisplay({
     <div className="flex flex-col md:flex-row">
       <div className="md:flex-1">
         <Textarea
-          className="min-h-[200px] font-mono bg-gray-100"
+          className="min-h-[200px] font-mono bg-muted"
           value={
             isDecrypting ? "Decrypting..." : error ? error : decryptedSecret
           }
@@ -100,11 +101,11 @@ export function SecretDisplay({
           aria-live="polite"
           aria-busy={isDecrypting}
         />
-        <p className="py-4">
+        <p className="py-4 text-foreground">
           The secret has now been permanently deleted from the system, and the
           URL will no longer work. Refresh this page to verify.
         </p>
-        <p className="text-sm text-gray-600">
+        <p className="text-sm text-muted-foreground">
           <strong>Security note:</strong> This secret was decrypted in your
           browser. The server never had access to the unencrypted content.
         </p>

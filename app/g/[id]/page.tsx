@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { getEncryptedSecret } from "@/libs/snappwd";
-import { RevealForm, SecretDisplay } from "@/app/get/[id]/client-page";
+import { RevealForm, SecretDisplay } from "./client-page";
 
 interface PageProps {
   params: { id: string };

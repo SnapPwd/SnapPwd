@@ -33,9 +33,11 @@ export default function PrivacyPage() {
         <h1 className="text-4xl font-bold mb-8">Privacy Policy</h1>
 
         <div className="prose prose-lg">
-          <p className="text-lg mb-6">Last updated: July 8, 2025</p>
+          <p className="text-lg mb-6 text-muted-foreground">
+            Last updated: July 8, 2025
+          </p>
 
-          <p>
+          <p className="text-lg mb-6 text-muted-foreground">
             At SnapPwd, we take your privacy seriously. This Privacy Policy
             explains how we collect, use, disclose, and safeguard your
             information when you use our service.
@@ -44,10 +46,10 @@ export default function PrivacyPage() {
           <h2 className="text-2xl font-semibold mt-8 mb-4">
             Information We Collect
           </h2>
-          <p>
+          <p className="text-muted-foreground">
             We collect minimal information to provide and improve our service:
           </p>
-          <ul className="list-disc pl-6 my-4 space-y-2">
+          <ul className="list-disc pl-6 my-4 space-y-2 text-muted-foreground">
             <li>
               <strong>Usage Data:</strong> We collect anonymous usage statistics
               such as access times, device information, and IP addresses for
@@ -63,8 +65,10 @@ export default function PrivacyPage() {
           <h2 className="text-2xl font-semibold mt-8 mb-4">
             How We Use Your Information
           </h2>
-          <p>We use the information we collect to:</p>
-          <ul className="list-disc pl-6 my-4 space-y-2">
+          <p className="text-muted-foreground">
+            We use the information we collect to:
+          </p>
+          <ul className="list-disc pl-6 my-4 space-y-2 text-muted-foreground">
             <li>Provide, maintain, and improve our services</li>
             <li>
               Detect, prevent, and address technical issues and security threats
@@ -74,7 +78,7 @@ export default function PrivacyPage() {
           </ul>
 
           <h2 className="text-2xl font-semibold mt-8 mb-4">Data Retention</h2>
-          <p>
+          <p className="text-muted-foreground">
             We automatically delete all encrypted content once it has been
             accessed by the recipient or when it reaches its expiration time,
             whichever comes first. We do not maintain backups of expired or
@@ -82,7 +86,7 @@ export default function PrivacyPage() {
           </p>
 
           <h2 className="text-2xl font-semibold mt-8 mb-4">Security</h2>
-          <p>
+          <p className="text-muted-foreground">
             We implement appropriate technical and organizational measures to
             protect your data. However, no method of transmission over the
             Internet or electronic storage is 100% secure, so we cannot
@@ -92,21 +96,21 @@ export default function PrivacyPage() {
           <h2 className="text-2xl font-semibold mt-8 mb-4">
             Changes to This Privacy Policy
           </h2>
-          <p>
+          <p className="text-muted-foreground">
             We may update our Privacy Policy from time to time. We will notify
             you of any changes by posting the new Privacy Policy on this page
             and updating the &quot;Last updated&quot; date.
           </p>
 
           <h2 className="text-2xl font-semibold mt-8 mb-4">Contact Us</h2>
-          <p>
+          <p className="text-muted-foreground">
             If you have any questions about this Privacy Policy, please contact
             us at{" "}
             <a
               href={`mailto:${
                 process.env.PRIVACY_EMAIL || "privacy@snappwd.io"
               }`}
-              className="text-blue-600 hover:underline"
+              className="text-muted-foreground hover:underline"
             >
               {process.env.PRIVACY_EMAIL || "privacy@snappwd.io"}
             </a>

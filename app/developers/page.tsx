@@ -85,17 +85,17 @@ export default function DeveloperPage() {
         <Breadcrumbs />
 
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold mb-4">
+          <h1 className="text-4xl font-bold mb-4 text-foreground">
             Developer Tools for Secure Secret Sharing
           </h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
             Share API keys, .env files, and development credentials securely
             with your team. Self-destructing links designed for developer
             workflows and security best practices.
           </p>
         </div>
 
-        <div className="bg-white p-8 rounded-xl shadow-lg border border-gray-100 max-w-6xl mx-auto mb-12">
+        <div className="bg-card p-8 rounded-xl shadow-lg border border-border max-w-6xl mx-auto mb-12">
           <SecretForm />
         </div>
 
@@ -103,20 +103,20 @@ export default function DeveloperPage() {
           {developerUseCases.map((useCase, index) => (
             <div
               key={index}
-              className="bg-white p-6 rounded-lg border border-gray-200 hover:border-gray-300 transition-colors"
+              className="bg-card p-6 rounded-lg border border-border hover:border-ring transition-colors"
             >
               <div className="flex items-center mb-4">
-                <useCase.icon className="h-6 w-6 text-blue-600 mr-3" />
-                <h3 className="text-xl font-semibold">{useCase.title}</h3>
+                <useCase.icon className="h-6 w-6 text-primary mr-3" />
+                <h3 className="text-xl font-semibold text-foreground">{useCase.title}</h3>
               </div>
-              <p className="text-gray-600 mb-4">{useCase.description}</p>
+              <p className="text-muted-foreground mb-4">{useCase.description}</p>
               <ul className="space-y-2">
                 {useCase.benefits.map((benefit, benefitIndex) => (
                   <li
                     key={benefitIndex}
-                    className="flex items-center text-sm text-gray-700"
+                    className="flex items-center text-sm text-foreground"
                   >
-                    <span className="w-2 h-2 bg-blue-500 rounded-full mr-2"></span>
+                    <span className="w-2 h-2 bg-primary rounded-full mr-2"></span>
                     {benefit}
                   </li>
                 ))}
@@ -125,38 +125,38 @@ export default function DeveloperPage() {
           ))}
         </div>
 
-        <div className="bg-blue-50 rounded-lg p-8 mb-12">
-          <h2 className="text-2xl font-bold mb-4">
+        <div className="bg-accent rounded-lg p-8 mb-12">
+          <h2 className="text-2xl font-bold mb-4 text-foreground">
             Why Developers Choose SnapPwd
           </h2>
           <div className="grid md:grid-cols-3 gap-6">
             <div>
-              <h3 className="font-semibold mb-2 flex items-center">
-                <Shield className="h-5 w-5 mr-2 text-blue-600" />
+              <h3 className="font-semibold mb-2 flex items-center text-foreground">
+                <Shield className="h-5 w-5 mr-2 text-primary" />
                 Zero-Knowledge Architecture
               </h3>
-              <p className="text-gray-700">
+              <p className="text-muted-foreground">
                 All encryption happens in your browser before transmission. Our
                 servers never have access to your unencrypted secrets—it&apos;s
                 technically impossible with our architecture.
               </p>
             </div>
             <div>
-              <h3 className="font-semibold mb-2 flex items-center">
-                <Zap className="h-5 w-5 mr-2 text-blue-600" />
+              <h3 className="font-semibold mb-2 flex items-center text-foreground">
+                <Zap className="h-5 w-5 mr-2 text-primary" />
                 No Account Required
               </h3>
-              <p className="text-gray-700">
+              <p className="text-muted-foreground">
                 Share secrets instantly without sign-up, email verification, or
                 password management. Simple link generation in seconds.
               </p>
             </div>
             <div>
-              <h3 className="font-semibold mb-2 flex items-center">
-                <Trash2 className="h-5 w-5 mr-2 text-blue-600" />
+              <h3 className="font-semibold mb-2 flex items-center text-foreground">
+                <Trash2 className="h-5 w-5 mr-2 text-primary" />
                 Self-Destructing Links
               </h3>
-              <p className="text-gray-700">
+              <p className="text-muted-foreground">
                 Each link automatically deletes after first access, eliminating
                 the risk of old credentials persisting in chat history or email
                 threads.
@@ -166,17 +166,17 @@ export default function DeveloperPage() {
         </div>
 
         <div className="text-center">
-          <h2 className="text-2xl font-bold mb-4">
+          <h2 className="text-2xl font-bold mb-4 text-foreground">
             Ready for Secure Developer Credential Sharing?
           </h2>
-          <p className="text-gray-600 mb-6">
+          <p className="text-muted-foreground mb-6">
             Join thousands of developers using SnapPwd to share credentials
             securely. Eliminate the security risks of sharing API keys and
             secrets through email or chat.
           </p>
           <a
             href="/"
-            className="inline-flex items-center px-6 py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+            className="inline-flex items-center px-6 py-3 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors"
           >
             Start Sharing Securely
           </a>

@@ -3,6 +3,8 @@ import { Metadata } from "next";
 import { baseMetadata } from "../metadata";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import FAQStructuredData from "@/components/ui/FAQStructuredData";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   ...baseMetadata,
@@ -113,7 +115,7 @@ export default function FAQPage() {
         <h1 className="text-4xl font-bold mb-8">Frequently Asked Questions</h1>
 
         <div className="prose prose-lg mb-8">
-          <p className="text-lg">
+          <p className="text-lg text-muted-foreground">
             Find answers to common questions about SnapPwd&apos;s secure
             password sharing service.
           </p>
@@ -123,30 +125,39 @@ export default function FAQPage() {
           {faqData.map((faq, index) => (
             <div
               key={index}
-              className="border border-gray-200 rounded-lg p-6 hover:border-gray-300 transition-colors"
+              className="border border-border rounded-lg p-6 hover:border-ring transition-colors bg-card"
             >
-              <h2 className="text-xl font-semibold mb-3 text-gray-900">
+              <h2 className="text-xl font-semibold mb-3 text-foreground">
                 {faq.question}
               </h2>
-              <p className="text-gray-700 leading-relaxed">{faq.answer}</p>
+              <p className="text-muted-foreground leading-relaxed">
+                {faq.answer}
+              </p>
             </div>
           ))}
         </div>
 
-        <div className="mt-12 p-6 bg-blue-50 rounded-lg border border-blue-200">
-          <h3 className="text-lg font-semibold mb-3 text-blue-900">
+        <div className="mt-12 p-6 rounded-lg border">
+          <h3 className="text-lg font-semibold mb-3 text-foreground">
             Still have questions?
           </h3>
-          <p className="text-blue-800 mb-4">
+          <p className="text-muted-foreground mb-4">
             Can&apos;t find the answer you&apos;re looking for? We&apos;re here
             to help.
           </p>
-          <a
-            href={`mailto:${process.env.SUPPORT_EMAIL || "support@snappwd.io"}`}
-            className="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+          <Button
+            asChild
+            size={"lg"}
+            className="inline-flex items-center px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors"
           >
-            Contact Support
-          </a>
+            <Link
+              href={`mailto:${
+                process.env.SUPPORT_EMAIL || "support@snappwd.io"
+              }`}
+            >
+              Contact Support
+            </Link>
+          </Button>
         </div>
       </div>
     </section>

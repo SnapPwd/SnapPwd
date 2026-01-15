@@ -23,13 +23,13 @@ export default function AboutPage() {
         <h1 className="text-4xl font-bold mb-8">About SnapPwd</h1>
 
         <div className="prose prose-lg">
-          <p className="text-lg mb-6">
+          <p className="text-lg mb-6 text-muted-foreground">
             SnapPwd is a secure password and sensitive information sharing
             service designed with security and privacy as our top priorities.
           </p>
 
           <h2 className="text-2xl font-semibold mt-8 mb-4">Our Mission</h2>
-          <p>
+          <p className="text-muted-foreground">
             We created SnapPwd to solve a common problem: how to securely share
             sensitive information like passwords, API keys, and other
             credentials without exposing them to unintended recipients or
@@ -38,11 +38,11 @@ export default function AboutPage() {
           </p>
 
           <h2 className="text-2xl font-semibold mt-8 mb-4">How It Works</h2>
-          <p>
+          <p className="text-muted-foreground">
             SnapPwd uses end-to-end encryption to secure your sensitive
             information. When you create a secret:
           </p>
-          <ul className="list-disc pl-6 my-4 space-y-2">
+          <ul className="list-disc pl-6 my-4 space-y-2 text-muted-foreground">
             <li>
               Your data is encrypted in your browser before it ever reaches our
               servers
@@ -59,7 +59,7 @@ export default function AboutPage() {
           </ul>
 
           <h2 className="text-2xl font-semibold mt-8 mb-4">Security First</h2>
-          <p>
+          <p className="text-muted-foreground">
             Security isn&apos;t just a feature of SnapPwd—it&apos;s the
             foundation. We employ industry-standard encryption protocols,
             maintain strict data handling practices, and continuously update our
@@ -67,14 +67,14 @@ export default function AboutPage() {
           </p>
 
           <h2 className="text-2xl font-semibold mt-8 mb-4">Contact Us</h2>
-          <p>
+          <p className="text-muted-foreground">
             Have questions, feedback, or need support? We&apos;d love to hear
             from you. Please contact us at{" "}
             <a
               href={`mailto:${
                 process.env.SUPPORT_EMAIL || "support@snappwd.io"
               }`}
-              className="text-blue-600 hover:underline"
+              className="text-muted-foreground hover:underline"
             >
               {process.env.SUPPORT_EMAIL || "support@snappwd.io"}
             </a>

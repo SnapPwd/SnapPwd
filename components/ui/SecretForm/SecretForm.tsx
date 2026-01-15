@@ -134,7 +134,7 @@ export default function SecretForm() {
             : "opacity-100"
         }`}
       >
-        <h2 className="text-xl mb-6 flex items-center justify-center">
+        <h2 className="text-xl mb-6 flex items-center justify-center text-foreground">
           <Lock className="h-5 w-5 mr-2" /> Create Your Secure Link
         </h2>
         <form
@@ -150,19 +150,19 @@ export default function SecretForm() {
             {/* Character counter with modern styling */}
             <div className="mt-3 flex items-center justify-between text-xs">
               <div className="flex items-center gap-2">
-                <span className="text-slate-600 font-medium">
+                <span className="text-foreground font-medium">
                   {secretCharCount.toLocaleString()}
                 </span>
-                <span className="text-slate-400">/</span>
-                <span className="text-slate-500">
+                <span className="text-muted-foreground">/</span>
+                <span className="text-muted-foreground">
                   ~{maxChars.toLocaleString()} characters
                 </span>
               </div>
               <span
                 className={`font-medium transition-colors ${
                   secretLength > maxSize.bytes
-                    ? "text-red-600"
-                    : "text-slate-600"
+                    ? "text-destructive"
+                    : "text-foreground"
                 }`}
               >
                 {secretLength > maxSize.bytes
@@ -180,13 +180,13 @@ export default function SecretForm() {
             <div className="flex flex-col gap-3">
               <label
                 htmlFor="expiration"
-                className="text-sm font-semibold text-slate-700 flex items-center gap-2"
+                className="text-sm font-semibold text-foreground flex items-center gap-2"
               >
                 <Clock className="h-4 w-4" />
                 Link Expiration
               </label>
               <select
-                className="border border-slate-300 rounded-lg p-3 w-full bg-white hover:border-slate-400 focus:border-slate-500 focus:ring-2 focus:ring-slate-500/20 transition-all outline-none text-sm font-medium cursor-pointer"
+                className="border border-input rounded-lg p-3 w-full bg-background text-foreground hover:border-ring focus:border-ring focus:ring-2 focus:ring-ring/20 transition-all outline-none text-sm font-medium cursor-pointer"
                 name="expiration"
                 id="expiration"
                 value={selectedExpiration}
@@ -200,7 +200,7 @@ export default function SecretForm() {
                   </option>
                 ))}
               </select>
-              <p className="text-xs text-slate-500 leading-relaxed">
+              <p className="text-xs text-muted-foreground leading-relaxed">
                 Your secret will be permanently deleted after this time period
               </p>
             </div>
@@ -208,7 +208,7 @@ export default function SecretForm() {
             {/* Generate button with modern styling */}
             <Button
               size="lg"
-              className="bg-slate-900 hover:bg-slate-800 text-white shadow-md hover:shadow-lg transition-all duration-200 text-base h-12"
+              className="bg-primary hover:bg-primary/90 text-primary-foreground shadow-md hover:shadow-lg transition-all duration-200 text-base h-12"
               type="submit"
               disabled={isSubmitting || secretLength > maxSize.bytes}
             >
@@ -226,17 +226,17 @@ export default function SecretForm() {
             </Button>
 
             {/* Security features badge */}
-            <div className="flex flex-col gap-2 p-4 bg-slate-50 rounded-lg border border-slate-200">
-              <div className="flex items-center gap-2 text-xs text-slate-600">
-                <div className="h-1.5 w-1.5 rounded-full bg-slate-400" />
+            <div className="flex flex-col gap-2 p-4 bg-muted rounded-lg border border-border">
+              <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                <div className="h-1.5 w-1.5 rounded-full bg-muted-foreground" />
                 <span>One-time access only</span>
               </div>
-              <div className="flex items-center gap-2 text-xs text-slate-600">
-                <div className="h-1.5 w-1.5 rounded-full bg-slate-400" />
+              <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                <div className="h-1.5 w-1.5 rounded-full bg-muted-foreground" />
                 <span>Auto-expires after time limit</span>
               </div>
-              <div className="flex items-center gap-2 text-xs text-slate-600">
-                <div className="h-1.5 w-1.5 rounded-full bg-slate-400" />
+              <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                <div className="h-1.5 w-1.5 rounded-full bg-muted-foreground" />
                 <span>End-to-end encrypted</span>
               </div>
             </div>
