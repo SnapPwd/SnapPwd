@@ -3,13 +3,25 @@
 import { Button } from "@/components/ui/button";
 import SecretInput from "@/components/ui/SecretInput";
 import SecretLinkResult from "@/components/ui/SecretLinkResult";
+import { DateTimePicker } from "@/components/ui/date-time-picker";
 import { Loader2, Clock, Link2, Lock } from "lucide-react";
+import { addMinutes, addYears, format } from "date-fns";
 import { storeEncryptedSecret, getMaxSecretSize } from "@/app/actions";
 import { encryptData, generateEncryptionKey } from "@/libs/client-crypto";
-import { useState, useEffect, FormEvent, useRef, useCallback } from "react";
+import {
+  useState,
+  useEffect,
+  FormEvent,
+  useRef,
+  useCallback,
+  useMemo,
+} from "react";
 import {
   EXPIRATION_OPTIONS,
   ExpirationValue,
+  isCustomExpiration,
+  CUSTOM_EXPIRATION_MIN_SECONDS,
+  CUSTOM_EXPIRATION_MAX_SECONDS,
 } from "@/libs/constants";
 
 export default function SecretForm() {
@@ -23,6 +35,33 @@ export default function SecretForm() {
   const [generatedUrl, setGeneratedUrl] = useState<string>("");
   const [selectedExpiration, setSelectedExpiration] =
     useState<ExpirationValue>("one_hour");
+  const [customDateTime, setCustomDateTime] = useState<Date | undefined>(
+    undefined
+  );
+
+  // Helper functions for custom datetime
+  const minDateTime = useMemo(() => addMinutes(new Date(), 5), []);
+  const maxDateTime = useMemo(() => addYears(new Date(), 1), []);
+
+  const calculateCustomExpirationSeconds = useCallback(
+    (date: Date | undefined): number | null => {
+      if (!date) return null;
+      const now = new Date();
+      const diffSeconds = Math.floor((date.getTime() - now.getTime()) / 1000);
+
+      if (diffSeconds < CUSTOM_EXPIRATION_MIN_SECONDS) return null;
+      if (diffSeconds > CUSTOM_EXPIRATION_MAX_SECONDS) return null;
+
+      return diffSeconds;
+    },
+    []
+  );
+
+  const isCustomDateTimeValid = useMemo(() => {
+    if (!isCustomExpiration(selectedExpiration)) return true;
+    const seconds = calculateCustomExpirationSeconds(customDateTime);
+    return seconds !== null;
+  }, [selectedExpiration, customDateTime, calculateCustomExpirationSeconds]);
 
   // Derive isFlipped from generatedUrl
   const isFlipped = generatedUrl !== "";
@@ -73,6 +112,20 @@ export default function SecretForm() {
         return;
       }
 
+      // For custom expiration, calculate and validate seconds
+      let expirationSeconds: number | undefined;
+      if (isCustomExpiration(expirationValue as ExpirationValue)) {
+        const seconds = calculateCustomExpirationSeconds(customDateTime);
+        if (seconds === null) {
+          alert(
+            "Please select a valid future date and time (5 minutes to 1 year from now)."
+          );
+          setIsSubmitting(false);
+          return;
+        }
+        expirationSeconds = seconds;
+      }
+
       // Generate a random encryption key in the browser
       const encryptionKey = generateEncryptionKey();
 
@@ -82,7 +135,8 @@ export default function SecretForm() {
       // Send only the encrypted data to the server
       const storageKey = await storeEncryptedSecret(
         encryptedSecret,
-        expirationValue
+        expirationValue,
+        expirationSeconds
       );
 
       // Build the complete URL with the encryption key in the hash
@@ -109,6 +163,7 @@ export default function SecretForm() {
     setGeneratedUrl("");
     setSecretLength(0);
     setSelectedExpiration("one_hour");
+    setCustomDateTime(undefined);
     formRef.current?.reset();
   }, []);
 
@@ -203,6 +258,18 @@ export default function SecretForm() {
               <p className="text-xs text-muted-foreground leading-relaxed">
                 Your secret will be permanently deleted after this time period
               </p>
+
+              {/* Custom datetime picker */}
+              {isCustomExpiration(selectedExpiration) && (
+                <DateTimePicker
+                  date={customDateTime}
+                  onDateChange={setCustomDateTime}
+                  minDate={minDateTime}
+                  maxDate={maxDateTime}
+                  placeholder="Select expiration date"
+                  className="mt-2"
+                />
+              )}
             </div>
 
             {/* Generate button with modern styling */}
@@ -210,7 +277,11 @@ export default function SecretForm() {
               size="lg"
               className="bg-primary hover:bg-primary/90 text-primary-foreground shadow-md hover:shadow-lg transition-all duration-200 text-base h-12"
               type="submit"
-              disabled={isSubmitting || secretLength > maxSize.bytes}
+              disabled={
+                isSubmitting ||
+                secretLength > maxSize.bytes ||
+                !isCustomDateTimeValid
+              }
             >
               {isSubmitting ? (
                 <>
@@ -255,8 +326,10 @@ export default function SecretForm() {
         <SecretLinkResult
           secretUrl={generatedUrl}
           expirationLabel={
-            EXPIRATION_OPTIONS.find((o) => o.value === selectedExpiration)
-              ?.label ?? ""
+            isCustomExpiration(selectedExpiration) && customDateTime
+              ? format(customDateTime, "PPpp")
+              : (EXPIRATION_OPTIONS.find((o) => o.value === selectedExpiration)
+                  ?.label ?? "")
           }
           onCreateAnother={handleCreateAnother}
         />

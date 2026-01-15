@@ -1,5 +1,3 @@
-import { randomInt } from "crypto";
-
 export interface PasswordConfig {
   length: number;
   useUppercase: boolean;
@@ -15,8 +13,14 @@ const CHARSETS = {
   symbols: "!@#$%^&*()_+-=[]{}|;:,.<>?",
 } as const;
 
+/**
+ * Generate a cryptographically secure random integer in range [0, maxExclusive)
+ * Uses Web Crypto API which works in both browsers and Node.js
+ */
 function secureRandomInt(maxExclusive: number): number {
-  return randomInt(0, maxExclusive);
+  const randomBuffer = new Uint32Array(1);
+  crypto.getRandomValues(randomBuffer);
+  return randomBuffer[0] % maxExclusive;
 }
 
 /**
