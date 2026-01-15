@@ -11,6 +11,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const faqLastModified = new Date("2025-01-07");
   const developersLastModified = new Date("2025-01-08");
   const apiKeysLastModified = new Date("2025-01-08");
+  const passwordsLastModified = new Date("2025-01-14");
+  const teamsLastModified = new Date("2025-01-14");
+  const onboardingLastModified = new Date("2025-01-14");
 
   const sitemapEntries: MetadataRoute.Sitemap = [
     {
@@ -61,6 +64,24 @@ export default function sitemap(): MetadataRoute.Sitemap {
     {
       url: `${baseUrl}/api-keys`,
       lastModified: apiKeysLastModified,
+      changeFrequency: "monthly",
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/passwords`,
+      lastModified: passwordsLastModified,
+      changeFrequency: "monthly",
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/teams`,
+      lastModified: teamsLastModified,
+      changeFrequency: "monthly",
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/onboarding`,
+      lastModified: onboardingLastModified,
       changeFrequency: "monthly",
       priority: 0.9,
     }
