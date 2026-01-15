@@ -1,3 +1,5 @@
+import { randomInt } from "crypto";
+
 export interface PasswordConfig {
   length: number;
   useUppercase: boolean;
@@ -13,6 +15,10 @@ const CHARSETS = {
   symbols: "!@#$%^&*()_+-=[]{}|;:,.<>?",
 } as const;
 
+function secureRandomInt(maxExclusive: number): number {
+  return randomInt(0, maxExclusive);
+}
+
 /**
  * Generate a secure random password with the given configuration.
  * Ensures at least one character from each selected character type.
@@ -24,25 +30,25 @@ export function generatePassword(config: PasswordConfig): string {
   if (config.useUppercase) {
     allChars += CHARSETS.uppercase;
     required.push(
-      CHARSETS.uppercase[Math.floor(Math.random() * CHARSETS.uppercase.length)]
+      CHARSETS.uppercase[secureRandomInt(CHARSETS.uppercase.length)]
     );
   }
   if (config.useLowercase) {
     allChars += CHARSETS.lowercase;
     required.push(
-      CHARSETS.lowercase[Math.floor(Math.random() * CHARSETS.lowercase.length)]
+      CHARSETS.lowercase[secureRandomInt(CHARSETS.lowercase.length)]
     );
   }
   if (config.useNumbers) {
     allChars += CHARSETS.numbers;
     required.push(
-      CHARSETS.numbers[Math.floor(Math.random() * CHARSETS.numbers.length)]
+      CHARSETS.numbers[secureRandomInt(CHARSETS.numbers.length)]
     );
   }
   if (config.useSymbols) {
     allChars += CHARSETS.symbols;
     required.push(
-      CHARSETS.symbols[Math.floor(Math.random() * CHARSETS.symbols.length)]
+      CHARSETS.symbols[secureRandomInt(CHARSETS.symbols.length)]
     );
   }
 
@@ -54,10 +60,10 @@ export function generatePassword(config: PasswordConfig): string {
       CHARSETS.numbers +
       CHARSETS.symbols;
     required.push(
-      CHARSETS.uppercase[Math.floor(Math.random() * CHARSETS.uppercase.length)],
-      CHARSETS.lowercase[Math.floor(Math.random() * CHARSETS.lowercase.length)],
-      CHARSETS.numbers[Math.floor(Math.random() * CHARSETS.numbers.length)],
-      CHARSETS.symbols[Math.floor(Math.random() * CHARSETS.symbols.length)]
+      CHARSETS.uppercase[secureRandomInt(CHARSETS.uppercase.length)],
+      CHARSETS.lowercase[secureRandomInt(CHARSETS.lowercase.length)],
+      CHARSETS.numbers[secureRandomInt(CHARSETS.numbers.length)],
+      CHARSETS.symbols[secureRandomInt(CHARSETS.symbols.length)]
     );
   }
 
@@ -65,12 +71,12 @@ export function generatePassword(config: PasswordConfig): string {
 
   // Fill the rest with random characters
   for (let i = password.length; i < config.length; i++) {
-    password.push(allChars[Math.floor(Math.random() * allChars.length)]);
+    password.push(allChars[secureRandomInt(allChars.length)]);
   }
 
   // Shuffle the password array (Fisher-Yates)
   for (let i = password.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
+    const j = secureRandomInt(i + 1);
     [password[i], password[j]] = [password[j], password[i]];
   }
 
