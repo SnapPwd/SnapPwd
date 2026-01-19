@@ -14,6 +14,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const passwordsLastModified = new Date("2025-01-14");
   const teamsLastModified = new Date("2025-01-14");
   const onboardingLastModified = new Date("2025-01-14");
+  const apiKeyBestPracticesLastModified = new Date("2025-01-18");
+  const envFilesLastModified = new Date("2025-01-18");
+  const envBestPracticesLastModified = new Date("2025-01-18");
 
   const sitemapEntries: MetadataRoute.Sitemap = [
     {
@@ -82,6 +85,24 @@ export default function sitemap(): MetadataRoute.Sitemap {
     {
       url: `${baseUrl}/onboarding`,
       lastModified: onboardingLastModified,
+      changeFrequency: "monthly",
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/api-key-best-practices`,
+      lastModified: apiKeyBestPracticesLastModified,
+      changeFrequency: "monthly",
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/env-files`,
+      lastModified: envFilesLastModified,
+      changeFrequency: "monthly",
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/env-best-practices`,
+      lastModified: envBestPracticesLastModified,
       changeFrequency: "monthly",
       priority: 0.9,
     }
