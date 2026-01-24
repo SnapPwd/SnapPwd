@@ -3,6 +3,8 @@ import { Metadata } from "next";
 import { baseMetadata } from "../metadata";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import PrivacyStructuredData from "@/components/ui/PrivacyStructuredData";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   ...baseMetadata,
@@ -102,20 +104,25 @@ export default function PrivacyPage() {
             and updating the &quot;Last updated&quot; date.
           </p>
 
-          <h2 className="text-2xl font-semibold mt-8 mb-4">Contact Us</h2>
-          <p className="text-muted-foreground">
-            If you have any questions about this Privacy Policy, please contact
-            us at{" "}
-            <a
+        </div>
+
+        <div className="mt-8 p-6 rounded-lg border">
+          <h3 className="text-lg font-semibold mb-3 text-foreground">
+            Questions About Privacy?
+          </h3>
+          <p className="text-muted-foreground mb-4">
+            If you have any questions about this Privacy Policy, we&apos;re here
+            to help.
+          </p>
+          <Button asChild variant="outline" size="lg">
+            <Link
               href={`mailto:${
                 process.env.PRIVACY_EMAIL || "privacy@snappwd.io"
               }`}
-              className="text-muted-foreground hover:underline"
             >
-              {process.env.PRIVACY_EMAIL || "privacy@snappwd.io"}
-            </a>
-            .
-          </p>
+              Contact Privacy Team
+            </Link>
+          </Button>
         </div>
       </div>
     </section>

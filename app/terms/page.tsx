@@ -3,6 +3,8 @@ import { Metadata } from "next";
 import { baseMetadata } from "../metadata";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import TermsStructuredData from "@/components/ui/TermsStructuredData";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   ...baseMetadata,
@@ -30,9 +32,7 @@ export default function TermsPage() {
       <TermsStructuredData />
       <div className="max-w-4xl mx-auto px-6">
         <Breadcrumbs />
-        <h1 className="text-4xl font-bold mb-8 text-muted-foreground">
-          Terms of Service
-        </h1>
+        <h1 className="text-4xl font-bold mb-8">Terms of Service</h1>
 
         <div className="prose prose-lg">
           <p className="text-lg mb-6 text-muted-foreground">
@@ -119,17 +119,23 @@ export default function TermsPage() {
             to use SnapPwd after any changes, you accept the revised Terms.
           </p>
 
-          <h2 className="text-2xl font-semibold mt-8 mb-4">8. Contact Us</h2>
-          <p className="text-muted-foreground">
-            If you have any questions about these Terms, please contact us at{" "}
-            <a
-              href={`mailto:${process.env.LEGAL_EMAIL || "legal@snappwd.io"}`}
-              className="text-muted-foreground hover:underline"
-            >
-              {process.env.LEGAL_EMAIL || "legal@snappwd.io"}
-            </a>
-            .
+        </div>
+
+        <div className="mt-8 p-6 rounded-lg border">
+          <h3 className="text-lg font-semibold mb-3 text-foreground">
+            Questions About These Terms?
+          </h3>
+          <p className="text-muted-foreground mb-4">
+            If you have any questions about these Terms of Service, we&apos;re
+            here to help.
           </p>
+          <Button asChild variant="outline" size="lg">
+            <Link
+              href={`mailto:${process.env.LEGAL_EMAIL || "legal@snappwd.io"}`}
+            >
+              Contact Legal
+            </Link>
+          </Button>
         </div>
       </div>
     </section>

@@ -145,11 +145,7 @@ export default function FAQPage() {
             Can&apos;t find the answer you&apos;re looking for? We&apos;re here
             to help.
           </p>
-          <Button
-            asChild
-            size={"lg"}
-            className="inline-flex items-center px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors"
-          >
+          <Button asChild variant="outline" size="lg">
             <Link
               href={`mailto:${
                 process.env.SUPPORT_EMAIL || "support@snappwd.io"

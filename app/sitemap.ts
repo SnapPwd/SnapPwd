@@ -5,10 +5,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const showLegalPages = process.env.SHOW_LEGAL_PAGES === "true";
 
   const homeLastModified = new Date("2025-01-08");
-  const aboutLastModified = new Date("2025-01-07");
-  const privacyLastModified = new Date("2025-01-07");
-  const termsLastModified = new Date("2025-01-07");
-  const faqLastModified = new Date("2025-01-07");
+  const aboutLastModified = new Date("2025-01-23");
+  const privacyLastModified = new Date("2025-01-23");
+  const termsLastModified = new Date("2025-01-23");
+  const faqLastModified = new Date("2025-01-23");
   const developersLastModified = new Date("2025-01-08");
   const apiKeysLastModified = new Date("2025-01-08");
   const passwordsLastModified = new Date("2025-01-14");
