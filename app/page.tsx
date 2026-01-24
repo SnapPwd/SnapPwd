@@ -1,6 +1,7 @@
 import SecretForm from "@/components/ui/SecretForm";
-import { Shield, Clock, RefreshCw } from "lucide-react";
+import { Shield, Clock, RefreshCw, Key, Users, UserPlus, FileCode, Code } from "lucide-react";
 import FAQSection from "../components/ui/FAQSection";
+import Link from "next/link";
 
 export const metadata = {
   title: "SnapPwd - Share Secrets Securely",
@@ -37,7 +38,7 @@ export default function Home() {
       {/* Hero Section */}
       <section className="pt-16 pb-12">
         <div className="max-w-6xl mx-auto px-6 text-center">
-          <h1 className="text-5xl md:text-5xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-500">
+          <h1 className="text-5xl md:text-5xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-emerald-600 to-teal-500">
             Share Secrets Securely
           </h1>
           <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-3xl mx-auto">
@@ -118,6 +119,94 @@ export default function Home() {
               </p>
             </li>
           </ol>
+        </div>
+      </section>
+
+      {/* Use Cases Section */}
+      <section className="py-16 bg-background">
+        <div className="max-w-6xl mx-auto px-6">
+          <h2 className="text-3xl font-bold mb-4 text-center text-foreground">
+            Popular Use Cases
+          </h2>
+          <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
+            SnapPwd helps teams and individuals securely share sensitive information across various scenarios.
+          </p>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <Link
+              href="/passwords"
+              className="group bg-card p-6 rounded-lg shadow-sm border border-border hover:border-primary hover:shadow-md transition-all"
+            >
+              <div className="flex items-center mb-3">
+                <Key className="h-5 w-5 text-primary mr-2" />
+                <h3 className="text-lg font-semibold text-card-foreground group-hover:text-primary transition-colors">
+                  Share Passwords
+                </h3>
+              </div>
+              <p className="text-sm text-muted-foreground">
+                Send login credentials securely with one-time access links that self-destruct after viewing.
+              </p>
+            </Link>
+
+            <Link
+              href="/teams"
+              className="group bg-card p-6 rounded-lg shadow-sm border border-border hover:border-primary hover:shadow-md transition-all"
+            >
+              <div className="flex items-center mb-3">
+                <Users className="h-5 w-5 text-primary mr-2" />
+                <h3 className="text-lg font-semibold text-card-foreground group-hover:text-primary transition-colors">
+                  Team Credentials
+                </h3>
+              </div>
+              <p className="text-sm text-muted-foreground">
+                Share access credentials with team members without exposing them in chat or email.
+              </p>
+            </Link>
+
+            <Link
+              href="/onboarding"
+              className="group bg-card p-6 rounded-lg shadow-sm border border-border hover:border-primary hover:shadow-md transition-all"
+            >
+              <div className="flex items-center mb-3">
+                <UserPlus className="h-5 w-5 text-primary mr-2" />
+                <h3 className="text-lg font-semibold text-card-foreground group-hover:text-primary transition-colors">
+                  Employee Onboarding
+                </h3>
+              </div>
+              <p className="text-sm text-muted-foreground">
+                Securely provision new hires with the credentials they need on day one.
+              </p>
+            </Link>
+
+            <Link
+              href="/env-files"
+              className="group bg-card p-6 rounded-lg shadow-sm border border-border hover:border-primary hover:shadow-md transition-all"
+            >
+              <div className="flex items-center mb-3">
+                <FileCode className="h-5 w-5 text-primary mr-2" />
+                <h3 className="text-lg font-semibold text-card-foreground group-hover:text-primary transition-colors">
+                  Environment Files
+                </h3>
+              </div>
+              <p className="text-sm text-muted-foreground">
+                Share .env files and configuration secrets with developers safely.
+              </p>
+            </Link>
+
+            <Link
+              href="/api-keys"
+              className="group bg-card p-6 rounded-lg shadow-sm border border-border hover:border-primary hover:shadow-md transition-all"
+            >
+              <div className="flex items-center mb-3">
+                <Code className="h-5 w-5 text-primary mr-2" />
+                <h3 className="text-lg font-semibold text-card-foreground group-hover:text-primary transition-colors">
+                  API Keys
+                </h3>
+              </div>
+              <p className="text-sm text-muted-foreground">
+                Distribute API keys and tokens without leaving them exposed in messages.
+              </p>
+            </Link>
+          </div>
         </div>
       </section>
 
