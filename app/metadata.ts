@@ -80,4 +80,8 @@ export const baseMetadata: Metadata = {
       "en-GB": "/",
     },
   },
+  icons: {
+    icon: "/favicon.svg",
+    apple: "/favicon.svg",
+  },
 };
