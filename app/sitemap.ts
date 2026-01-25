@@ -1,5 +1,6 @@
 import { MetadataRoute } from "next";
 import { getAllProviderSlugs } from "@/lib/llm-providers";
+import { getAllCompetitorSlugs } from "@/lib/competitors";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = process.env.SITE_URL!;
@@ -117,6 +118,28 @@ export default function sitemap(): MetadataRoute.Sitemap {
     sitemapEntries.push({
       url: `${baseUrl}/api-keys/${slug}`,
       lastModified: llmProviderLastModified,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    });
+  }
+
+  // Add competitor comparison pages (programmatic SEO)
+  const competitorLastModified = new Date("2026-01-24");
+  const competitorSlugs = getAllCompetitorSlugs();
+
+  // Add hub page
+  sitemapEntries.push({
+    url: `${baseUrl}/compare`,
+    lastModified: competitorLastModified,
+    changeFrequency: "monthly",
+    priority: 0.9,
+  });
+
+  // Add individual competitor pages
+  for (const slug of competitorSlugs) {
+    sitemapEntries.push({
+      url: `${baseUrl}/compare/${slug}`,
+      lastModified: competitorLastModified,
       changeFrequency: "monthly",
       priority: 0.8,
     });

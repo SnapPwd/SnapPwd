@@ -2,6 +2,7 @@
 // Each page's structured data is defined here and rendered by the StructuredData component
 
 import { llmProviders, type LLMProvider } from "./llm-providers";
+import { competitors, type Competitor } from "./competitors";
 
 export interface FAQItem {
   question: string;
@@ -472,7 +473,75 @@ export const structuredDataConfigs: Record<string, StructuredDataConfig> = {
       ]),
     },
   },
+
+  "/compare": {
+    type: "static",
+    data: {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      name: "SnapPwd vs Competitors: Secret Sharing Comparison",
+      url: `${baseUrl}/compare`,
+      description:
+        "Compare SnapPwd to popular secret sharing and password management tools. See how self-destructing links stack up against 1Password, Bitwarden Send, and OneTimeSecret.",
+      dateModified: new Date().toISOString().split("T")[0],
+      isPartOf: {
+        "@type": "WebSite",
+        name: "SnapPwd",
+        url: baseUrl,
+      },
+      breadcrumb: createBreadcrumb([{ name: "Compare", path: "/compare" }]),
+    },
+  },
 };
+
+// Generate structured data for competitor comparison pages dynamically
+function createCompetitorStructuredData(
+  competitor: Competitor
+): StructuredDataConfig {
+  return {
+    type: "faq",
+    data: {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      name: competitor.title,
+      url: `${baseUrl}/compare/${competitor.slug}`,
+      description: competitor.description,
+      dateModified: new Date().toISOString().split("T")[0],
+      isPartOf: {
+        "@type": "WebSite",
+        name: "SnapPwd",
+        url: baseUrl,
+      },
+      mainEntity: {
+        "@type": "SoftwareApplication",
+        name: "SnapPwd",
+        applicationCategory: "SecurityApplication",
+        operatingSystem: "Any",
+        offers: {
+          "@type": "Offer",
+          price: "0",
+          priceCurrency: "USD",
+        },
+        featureList: [
+          "Self-destructing links",
+          "End-to-end encryption",
+          "No account required",
+          "One-time access",
+          "Client-side encryption",
+          "Built-in password generator",
+        ],
+      },
+      breadcrumb: createBreadcrumb([
+        { name: "Compare", path: "/compare" },
+        {
+          name: `vs ${competitor.name}`,
+          path: `/compare/${competitor.slug}`,
+        },
+      ]),
+    },
+    faqItems: competitor.faqs,
+  };
+}
 
 // Generate structured data for LLM provider pages dynamically
 function createLLMProviderStructuredData(provider: LLMProvider): StructuredDataConfig {
@@ -514,7 +583,7 @@ function createLLMProviderStructuredData(provider: LLMProvider): StructuredDataC
   };
 }
 
-// Get structured data for a path, including dynamic LLM provider pages
+// Get structured data for a path, including dynamic LLM provider and competitor pages
 export function getStructuredDataConfig(
   pathname: string
 ): StructuredDataConfig | undefined {
@@ -530,6 +599,16 @@ export function getStructuredDataConfig(
     const provider = llmProviders[providerSlug];
     if (provider) {
       return createLLMProviderStructuredData(provider);
+    }
+  }
+
+  // Check for competitor comparison pages (/compare/[competitor])
+  const competitorMatch = pathname.match(/^\/compare\/([^/]+)$/);
+  if (competitorMatch) {
+    const competitorSlug = competitorMatch[1];
+    const competitor = competitors[competitorSlug];
+    if (competitor) {
+      return createCompetitorStructuredData(competitor);
     }
   }
 
