@@ -2,7 +2,7 @@ import React from "react";
 import { Metadata } from "next";
 import { baseMetadata } from "../metadata";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
-import EnvFilesStructuredData from "@/components/ui/EnvFilesStructuredData";
+import StructuredData from "@/components/ui/StructuredData";
 import SecretForm from "@/components/ui/SecretForm";
 import {
   Shield,
@@ -121,7 +121,7 @@ const riskyPractices = [
 export default function EnvFilesPage() {
   return (
     <section className="py-12">
-      <EnvFilesStructuredData />
+      <StructuredData />
       <div className="max-w-6xl mx-auto px-6">
         <Breadcrumbs />
 

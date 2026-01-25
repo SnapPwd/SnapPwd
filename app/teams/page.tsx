@@ -2,7 +2,7 @@ import React from "react";
 import { Metadata } from "next";
 import { baseMetadata } from "../metadata";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
-import TeamsStructuredData from "@/components/ui/TeamsStructuredData";
+import StructuredData from "@/components/ui/StructuredData";
 import SecretForm from "@/components/ui/SecretForm";
 import {
   Shield,
@@ -94,7 +94,7 @@ const teamScenarios = [
 export default function TeamsPage() {
   return (
     <section className="py-12">
-      <TeamsStructuredData />
+      <StructuredData />
       <div className="max-w-6xl mx-auto px-6">
         <Breadcrumbs />
 

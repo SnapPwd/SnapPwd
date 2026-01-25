@@ -2,7 +2,7 @@ import React from "react";
 import { Metadata } from "next";
 import { baseMetadata } from "../metadata";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
-import OnboardingStructuredData from "@/components/ui/OnboardingStructuredData";
+import StructuredData from "@/components/ui/StructuredData";
 import SecretForm from "@/components/ui/SecretForm";
 import {
   Shield,
@@ -94,7 +94,7 @@ const onboardingSteps = [
 export default function OnboardingPage() {
   return (
     <section className="py-12">
-      <OnboardingStructuredData />
+      <StructuredData />
       <div className="max-w-6xl mx-auto px-6">
         <Breadcrumbs />
 

@@ -2,7 +2,7 @@ import React from "react";
 import { Metadata } from "next";
 import { baseMetadata } from "../metadata";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
-import EnvBestPracticesStructuredData from "@/components/ui/EnvBestPracticesStructuredData";
+import StructuredData from "@/components/ui/StructuredData";
 import {
   Shield,
   AlertTriangle,
@@ -179,7 +179,7 @@ const doAndDont = {
 export default function EnvBestPracticesPage() {
   return (
     <section className="py-12">
-      <EnvBestPracticesStructuredData />
+      <StructuredData />
       <div className="max-w-6xl mx-auto px-6">
         <Breadcrumbs />
 

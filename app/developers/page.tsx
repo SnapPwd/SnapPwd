@@ -2,7 +2,7 @@ import React from "react";
 import { Metadata } from "next";
 import { baseMetadata } from "../metadata";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
-import DeveloperStructuredData from "@/components/ui/DeveloperStructuredData";
+import StructuredData from "@/components/ui/StructuredData";
 import SecretForm from "@/components/ui/SecretForm";
 import { Shield, Key, Database, Users, Zap, Trash2 } from "lucide-react";
 
@@ -80,7 +80,7 @@ const developerUseCases = [
 export default function DeveloperPage() {
   return (
     <section className="py-12">
-      <DeveloperStructuredData />
+      <StructuredData />
       <div className="max-w-6xl mx-auto px-6">
         <Breadcrumbs />
 

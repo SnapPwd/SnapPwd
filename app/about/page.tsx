@@ -1,7 +1,7 @@
 import React from "react";
 import { Metadata } from "next";
 import { baseMetadata } from "../metadata";
-import AboutStructuredData from "@/components/ui/AboutStructuredData";
+import StructuredData from "@/components/ui/StructuredData";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <section className="py-12">
-      <AboutStructuredData />
+      <StructuredData />
       <div className="max-w-4xl mx-auto px-6">
         <Breadcrumbs />
         <h1 className="text-4xl font-bold mb-4">About SnapPwd</h1>

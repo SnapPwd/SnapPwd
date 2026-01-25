@@ -7,7 +7,7 @@ import Footer from "@/components/ui/Footer";
 import cn from "classnames";
 import { Analytics } from "@vercel/analytics/react";
 import { baseMetadata } from "./metadata";
-import JsonLd from "@/components/ui/JsonLd";
+import StructuredData from "@/components/ui/StructuredData";
 
 export const metadata: Metadata = baseMetadata;
 
@@ -41,7 +41,7 @@ export default function RootLayout({
         </main>
         <Footer /> {/* 3.5rem for desktop, 5rem for mobile */}
         <Analytics />
-        <JsonLd />
+        <StructuredData />
       </body>
     </html>
   );

@@ -2,7 +2,7 @@ import React from "react";
 import { Metadata } from "next";
 import { baseMetadata } from "../metadata";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
-import PrivacyStructuredData from "@/components/ui/PrivacyStructuredData";
+import StructuredData from "@/components/ui/StructuredData";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
 export default function PrivacyPage() {
   return (
     <section className="py-12">
-      <PrivacyStructuredData />
+      <StructuredData />
       <div className="max-w-4xl mx-auto px-6">
         <Breadcrumbs />
         <h1 className="text-4xl font-bold mb-8">Privacy Policy</h1>

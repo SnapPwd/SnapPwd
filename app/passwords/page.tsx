@@ -2,7 +2,7 @@ import React from "react";
 import { Metadata } from "next";
 import { baseMetadata } from "../metadata";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
-import PasswordsStructuredData from "@/components/ui/PasswordsStructuredData";
+import StructuredData from "@/components/ui/StructuredData";
 import SecretForm from "@/components/ui/SecretForm";
 import {
   Shield,
@@ -91,7 +91,7 @@ const commonScenarios = [
 export default function PasswordsPage() {
   return (
     <section className="py-12">
-      <PasswordsStructuredData />
+      <StructuredData />
       <div className="max-w-6xl mx-auto px-6">
         <Breadcrumbs />
 

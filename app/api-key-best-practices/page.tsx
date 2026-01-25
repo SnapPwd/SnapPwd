@@ -2,7 +2,7 @@ import React from "react";
 import { Metadata } from "next";
 import { baseMetadata } from "../metadata";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
-import APIKeyBestPracticesStructuredData from "@/components/ui/APIKeyBestPracticesStructuredData";
+import StructuredData from "@/components/ui/StructuredData";
 import {
   Shield,
   AlertTriangle,
@@ -149,7 +149,7 @@ const doAndDont = {
 export default function APIKeyBestPracticesPage() {
   return (
     <section className="py-12">
-      <APIKeyBestPracticesStructuredData />
+      <StructuredData />
       <div className="max-w-6xl mx-auto px-6">
         <Breadcrumbs />
 
