@@ -1,22 +1,23 @@
 import { MetadataRoute } from "next";
+import { getAllProviderSlugs } from "@/lib/llm-providers";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = process.env.SITE_URL!;
   const showLegalPages = process.env.SHOW_LEGAL_PAGES === "true";
 
-  const homeLastModified = new Date("2025-01-08");
-  const aboutLastModified = new Date("2025-01-23");
-  const privacyLastModified = new Date("2025-01-23");
-  const termsLastModified = new Date("2025-01-23");
-  const faqLastModified = new Date("2025-01-23");
-  const developersLastModified = new Date("2025-01-08");
-  const apiKeysLastModified = new Date("2025-01-08");
-  const passwordsLastModified = new Date("2025-01-14");
-  const teamsLastModified = new Date("2025-01-14");
-  const onboardingLastModified = new Date("2025-01-14");
-  const apiKeyBestPracticesLastModified = new Date("2025-01-18");
-  const envFilesLastModified = new Date("2025-01-18");
-  const envBestPracticesLastModified = new Date("2025-01-18");
+  const homeLastModified = new Date("2026-01-08");
+  const aboutLastModified = new Date("2026-01-23");
+  const privacyLastModified = new Date("2026-01-23");
+  const termsLastModified = new Date("2026-01-23");
+  const faqLastModified = new Date("2026-01-23");
+  const developersLastModified = new Date("2026-01-08");
+  const apiKeysLastModified = new Date("2026-01-08");
+  const passwordsLastModified = new Date("2026-01-14");
+  const teamsLastModified = new Date("2026-01-14");
+  const onboardingLastModified = new Date("2026-01-14");
+  const apiKeyBestPracticesLastModified = new Date("2026-01-18");
+  const envFilesLastModified = new Date("2026-01-18");
+  const envBestPracticesLastModified = new Date("2026-01-18");
 
   const sitemapEntries: MetadataRoute.Sitemap = [
     {
@@ -107,6 +108,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     }
   );
+
+  // Add LLM provider pages (programmatic SEO)
+  const llmProviderLastModified = new Date("2026-01-24");
+  const providerSlugs = getAllProviderSlugs();
+
+  for (const slug of providerSlugs) {
+    sitemapEntries.push({
+      url: `${baseUrl}/api-keys/${slug}`,
+      lastModified: llmProviderLastModified,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    });
+  }
 
   return sitemapEntries;
 }

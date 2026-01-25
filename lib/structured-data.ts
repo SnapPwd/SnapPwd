@@ -1,6 +1,8 @@
 // Centralized structured data configurations for SEO
 // Each page's structured data is defined here and rendered by the StructuredData component
 
+import { llmProviders, type LLMProvider } from "./llm-providers";
+
 export interface FAQItem {
   question: string;
   answer: string;
@@ -471,3 +473,65 @@ export const structuredDataConfigs: Record<string, StructuredDataConfig> = {
     },
   },
 };
+
+// Generate structured data for LLM provider pages dynamically
+function createLLMProviderStructuredData(provider: LLMProvider): StructuredDataConfig {
+  return {
+    type: "faq",
+    data: {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      name: provider.title,
+      url: `${baseUrl}/api-keys/${provider.slug}`,
+      description: provider.description,
+      dateModified: new Date().toISOString().split("T")[0],
+      isPartOf: {
+        "@type": "WebSite",
+        name: "SnapPwd",
+        url: baseUrl,
+      },
+      mainEntity: createSoftwareApplication(
+        `Secure ${provider.name} API Key Sharing Tool`,
+        "SecurityApplication",
+        "Developers",
+        [
+          `Secure ${provider.name} API key sharing`,
+          "Self-destructing links",
+          "End-to-end encryption",
+          "One-time access",
+          "No registration required",
+          "Client-side encryption",
+          `${provider.name} credential distribution`,
+          "Zero-knowledge architecture",
+        ]
+      ),
+      breadcrumb: createBreadcrumb([
+        { name: "API Key Sharing", path: "/api-keys" },
+        { name: provider.name, path: `/api-keys/${provider.slug}` },
+      ]),
+    },
+    faqItems: provider.faqs,
+  };
+}
+
+// Get structured data for a path, including dynamic LLM provider pages
+export function getStructuredDataConfig(
+  pathname: string
+): StructuredDataConfig | undefined {
+  // Check static configs first
+  if (structuredDataConfigs[pathname]) {
+    return structuredDataConfigs[pathname];
+  }
+
+  // Check for LLM provider pages (/api-keys/[provider])
+  const providerMatch = pathname.match(/^\/api-keys\/([^/]+)$/);
+  if (providerMatch) {
+    const providerSlug = providerMatch[1];
+    const provider = llmProviders[providerSlug];
+    if (provider) {
+      return createLLMProviderStructuredData(provider);
+    }
+  }
+
+  return undefined;
+}

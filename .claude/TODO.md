@@ -2,11 +2,22 @@
 
 ## Open
 
-(none)
+### Create comparison pages vs competitors
+- **Created:** 2026-01-24
+- **Last Updated:** 2026-01-24
+- **Description:** Build pSEO comparison pages targeting "SnapPwd vs X" search queries. Create pages comparing SnapPwd to: 1Password sharing, Bitwarden Send, and OneTimeSecret. Each page should highlight SnapPwd's differentiators (no account required, zero-knowledge, self-destructing links) with a fair comparison table, unique benefits section, and clear CTAs. High conversion intent keywords.
+- **Pattern:** `/compare/[competitor]` or `/vs/[competitor]`
+- **Pages:** `snappwd-vs-1password`, `snappwd-vs-bitwarden-send`, `snappwd-vs-onetimesecret`
 
 ---
 
 ## Closed
+
+### Create pSEO pages for Stripe and Supabase API key sharing
+- **Created:** 2026-01-24
+- **Closed:** 2026-01-24
+- **Description:** Added programmatic SEO pages for Stripe (payment) and Supabase (backend-as-a-service) API key sharing. Extended existing `lib/llm-providers.ts` with unique content for each service. Updated hub page to organize providers into "AI & LLM" and "Service & Infrastructure" categories. (Redis removed - it uses passwords/connection strings, not API keys.)
+- **Files:** `lib/llm-providers.ts`, `app/api-keys/page.tsx`, `app/sitemap.ts`
 
 ### Consolidate SecretInput password config handlers
 - **Created:** 2026-01-24

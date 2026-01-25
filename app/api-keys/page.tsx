@@ -1,19 +1,20 @@
 import React from "react";
 import { Metadata } from "next";
+import Link from "next/link";
 import { baseMetadata } from "../metadata";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import StructuredData from "@/components/ui/StructuredData";
 import SecretForm from "@/components/ui/SecretForm";
+import { llmProviders } from "@/lib/llm-providers";
 import {
   Shield,
   Trash2,
   Zap,
   Users,
-  Lock,
-  Key,
   Mail,
   MessageSquare,
   CheckCircle,
+  ArrowRight,
 } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -136,6 +137,68 @@ export default function APIKeysPage() {
                 <h3 className="font-semibold mb-2 text-foreground">{useCase.title}</h3>
                 <p className="text-muted-foreground text-sm">{useCase.description}</p>
               </div>
+            ))}
+          </div>
+        </div>
+
+        {/* LLM Provider Pages - Hub to Spokes Internal Linking */}
+        <div className="bg-muted rounded-lg p-8 mb-12">
+          <h2 className="text-2xl font-bold mb-6 text-foreground">
+            Share AI & LLM API Keys Securely
+          </h2>
+          <p className="text-muted-foreground mb-6">
+            Working with AI APIs? Share your LLM provider credentials securely with self-destructing links.
+          </p>
+          <div className="grid md:grid-cols-3 gap-4">
+            {Object.values(llmProviders)
+              .filter((p) => ["openai", "anthropic", "google-gemini"].includes(p.slug))
+              .map((provider) => (
+              <Link
+                key={provider.slug}
+                href={`/api-keys/${provider.slug}`}
+                className="flex items-center justify-between bg-card p-4 rounded-lg border border-border hover:border-ring transition-colors group"
+              >
+                <div>
+                  <h3 className="font-semibold text-foreground">
+                    {provider.name}
+                  </h3>
+                  <p className="text-sm text-muted-foreground">
+                    Share {provider.name} API keys
+                  </p>
+                </div>
+                <ArrowRight className="h-5 w-5 text-muted-foreground group-hover:text-primary transition-colors" />
+              </Link>
+            ))}
+          </div>
+        </div>
+
+        {/* Service Provider Pages */}
+        <div className="bg-muted rounded-lg p-8 mb-12">
+          <h2 className="text-2xl font-bold mb-6 text-foreground">
+            Share Service & Infrastructure API Keys
+          </h2>
+          <p className="text-muted-foreground mb-6">
+            Payments, databases, and backend services—share these critical credentials securely.
+          </p>
+          <div className="grid md:grid-cols-3 gap-4">
+            {Object.values(llmProviders)
+              .filter((p) => ["stripe", "supabase"].includes(p.slug))
+              .map((provider) => (
+              <Link
+                key={provider.slug}
+                href={`/api-keys/${provider.slug}`}
+                className="flex items-center justify-between bg-card p-4 rounded-lg border border-border hover:border-ring transition-colors group"
+              >
+                <div>
+                  <h3 className="font-semibold text-foreground">
+                    {provider.name}
+                  </h3>
+                  <p className="text-sm text-muted-foreground">
+                    Share {provider.name} credentials
+                  </p>
+                </div>
+                <ArrowRight className="h-5 w-5 text-muted-foreground group-hover:text-primary transition-colors" />
+              </Link>
             ))}
           </div>
         </div>
