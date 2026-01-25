@@ -1,16 +1,9 @@
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import {
-  Shield,
-  RefreshCw,
-  Sparkles,
-  ChevronDown,
-  Copy,
-  Check,
-} from "lucide-react";
+import CopyButton from "@/components/ui/CopyButton/CopyButton";
+import { Shield, RefreshCw, Sparkles, ChevronDown } from "lucide-react";
 import { FaLock } from "react-icons/fa";
 import React, { useRef, useState, useCallback, useMemo } from "react";
-import { useCopyToClipboard } from "@/hooks/useCopyToClipboard";
 import { generatePassword, PasswordConfig } from "@/libs/password-generator";
 
 interface SecretInputProps {
@@ -30,14 +23,6 @@ export default function SecretInput({ onChange }: SecretInputProps) {
     useNumbers: true,
     useSymbols: true,
   });
-
-  const { isCopied, copy } = useCopyToClipboard();
-
-  const handleCopy = useCallback(() => {
-    if (textareaRef.current?.value) {
-      copy(textareaRef.current.value);
-    }
-  }, [copy]);
 
   const handleGeneratePassword = useCallback(() => {
     setIsGenerating(true);
@@ -76,53 +61,12 @@ export default function SecretInput({ onChange }: SecretInputProps) {
     [onChange]
   );
 
-  const handleLengthChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      setPasswordConfig((prev) => ({
-        ...prev,
-        length: parseInt(e.target.value),
-      }));
-    },
-    []
-  );
-
-  const handleUppercaseChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      setPasswordConfig((prev) => ({
-        ...prev,
-        useUppercase: e.target.checked,
-      }));
-    },
-    []
-  );
-
-  const handleLowercaseChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      setPasswordConfig((prev) => ({
-        ...prev,
-        useLowercase: e.target.checked,
-      }));
-    },
-    []
-  );
-
-  const handleNumbersChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      setPasswordConfig((prev) => ({
-        ...prev,
-        useNumbers: e.target.checked,
-      }));
-    },
-    []
-  );
-
-  const handleSymbolsChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      setPasswordConfig((prev) => ({
-        ...prev,
-        useSymbols: e.target.checked,
-      }));
-    },
+  const handleConfigChange = useCallback(
+    (key: keyof PasswordConfig) =>
+      (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = key === "length" ? parseInt(e.target.value) : e.target.checked;
+        setPasswordConfig((prev) => ({ ...prev, [key]: value }));
+      },
     []
   );
 
@@ -175,21 +119,11 @@ export default function SecretInput({ onChange }: SecretInputProps) {
 
           {/* Copy button in bottom right corner */}
           {hasContent && (
-            <button
-              type="button"
-              onClick={handleCopy}
-              className="absolute bottom-2 right-2 p-2 rounded-md hover:bg-accent transition-colors text-muted-foreground hover:text-foreground"
-              title="Copy to clipboard"
-              aria-label={
-                isCopied ? "Copied to clipboard" : "Copy to clipboard"
-              }
-            >
-              {isCopied ? (
-                <Check className="h-4 w-4 text-green-600" />
-              ) : (
-                <Copy className="h-4 w-4" />
-              )}
-            </button>
+            <CopyButton
+              text={() => textareaRef.current?.value ?? ""}
+              variant="icon"
+              className="absolute bottom-2 right-2"
+            />
           )}
         </div>
       </div>
@@ -260,7 +194,7 @@ export default function SecretInput({ onChange }: SecretInputProps) {
                 min="8"
                 max="64"
                 value={passwordConfig.length}
-                onChange={handleLengthChange}
+                onChange={handleConfigChange("length")}
                 className="w-full h-2 bg-secondary rounded-lg appearance-none cursor-pointer accent-primary"
               />
               <div className="flex justify-between text-xs text-muted-foreground">
@@ -280,7 +214,7 @@ export default function SecretInput({ onChange }: SecretInputProps) {
                     id="use-uppercase"
                     type="checkbox"
                     checked={passwordConfig.useUppercase}
-                    onChange={handleUppercaseChange}
+                    onChange={handleConfigChange("useUppercase")}
                     className="w-4 h-4 rounded border-input text-primary focus:ring-ring cursor-pointer"
                   />
                   <span className="text-xs text-muted-foreground">
@@ -295,7 +229,7 @@ export default function SecretInput({ onChange }: SecretInputProps) {
                     id="use-lowercase"
                     type="checkbox"
                     checked={passwordConfig.useLowercase}
-                    onChange={handleLowercaseChange}
+                    onChange={handleConfigChange("useLowercase")}
                     className="w-4 h-4 rounded border-input text-primary focus:ring-ring cursor-pointer"
                   />
                   <span className="text-xs text-muted-foreground">
@@ -310,7 +244,7 @@ export default function SecretInput({ onChange }: SecretInputProps) {
                     id="use-numbers"
                     type="checkbox"
                     checked={passwordConfig.useNumbers}
-                    onChange={handleNumbersChange}
+                    onChange={handleConfigChange("useNumbers")}
                     className="w-4 h-4 rounded border-input text-primary focus:ring-ring cursor-pointer"
                   />
                   <span className="text-xs text-muted-foreground">
@@ -325,7 +259,7 @@ export default function SecretInput({ onChange }: SecretInputProps) {
                     id="use-symbols"
                     type="checkbox"
                     checked={passwordConfig.useSymbols}
-                    onChange={handleSymbolsChange}
+                    onChange={handleConfigChange("useSymbols")}
                     className="w-4 h-4 rounded border-input text-primary focus:ring-ring cursor-pointer"
                   />
                   <span className="text-xs text-muted-foreground">

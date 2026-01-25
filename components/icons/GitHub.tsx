@@ -1,4 +1,4 @@
-const GitHub = ({ ...props }) => {
+function GitHub({ ...props }) {
   return (
     <svg
       width="24"
@@ -6,6 +6,7 @@ const GitHub = ({ ...props }) => {
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      {...props}
     >
       <path
         fillRule="evenodd"
@@ -15,6 +16,6 @@ const GitHub = ({ ...props }) => {
       />
     </svg>
   );
-};
+}
 
 export default GitHub;

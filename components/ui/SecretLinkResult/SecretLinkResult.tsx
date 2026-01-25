@@ -1,8 +1,8 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Check, Copy, RefreshCw, Clock, Shield } from "lucide-react";
-import { useCopyToClipboard } from "@/hooks/useCopyToClipboard";
+import CopyButton from "@/components/ui/CopyButton/CopyButton";
+import { Check, RefreshCw, Clock, Shield } from "lucide-react";
 
 interface SecretLinkResultProps {
   secretUrl: string;
@@ -15,8 +15,6 @@ export default function SecretLinkResult({
   expirationLabel,
   onCreateAnother,
 }: SecretLinkResultProps) {
-  const { isCopied, copy } = useCopyToClipboard();
-
   return (
     <div className="flex flex-col items-center justify-center px-6 py-2 bg-card rounded-lg">
       {/* Success Icon */}
@@ -44,19 +42,11 @@ export default function SecretLinkResult({
           <code className="flex-1 text-sm font-mono text-foreground break-all pr-10">
             {secretUrl}
           </code>
-          <button
-            type="button"
-            onClick={() => copy(secretUrl)}
-            className="absolute bottom-2 right-2 p-2 rounded-md hover:bg-accent transition-colors text-muted-foreground hover:text-foreground"
-            title={isCopied ? "Copied!" : "Copy to clipboard"}
-            aria-label={isCopied ? "Copied to clipboard" : "Copy to clipboard"}
-          >
-            {isCopied ? (
-              <Check className="h-4 w-4" />
-            ) : (
-              <Copy className="h-4 w-4" />
-            )}
-          </button>
+          <CopyButton
+            text={secretUrl}
+            variant="icon"
+            className="absolute bottom-2 right-2"
+          />
         </div>
       </div>
 

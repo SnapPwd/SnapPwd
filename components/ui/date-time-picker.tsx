@@ -36,6 +36,13 @@ export function DateTimePicker({
   const effectiveMinDate = minDate ?? addMinutes(new Date(), 5);
   const effectiveMaxDate = maxDate ?? addYears(new Date(), 1);
 
+  // Clamp date to min/max bounds
+  const clampDate = (d: Date): Date => {
+    if (isBefore(d, effectiveMinDate)) return effectiveMinDate;
+    if (isAfter(d, effectiveMaxDate)) return effectiveMaxDate;
+    return d;
+  };
+
   // Handle date selection from calendar
   const handleDateSelect = (selectedDate: Date | undefined) => {
     if (!selectedDate) {
@@ -52,14 +59,7 @@ export function DateTimePicker({
       milliseconds: 0,
     });
 
-    // Ensure the new date is within bounds
-    if (isBefore(newDate, effectiveMinDate)) {
-      onDateChange(effectiveMinDate);
-    } else if (isAfter(newDate, effectiveMaxDate)) {
-      onDateChange(effectiveMaxDate);
-    } else {
-      onDateChange(newDate);
-    }
+    onDateChange(clampDate(newDate));
   };
 
   // Handle time change
@@ -77,14 +77,7 @@ export function DateTimePicker({
       milliseconds: 0,
     });
 
-    // Ensure the new date is within bounds
-    if (isBefore(newDate, effectiveMinDate)) {
-      onDateChange(effectiveMinDate);
-    } else if (isAfter(newDate, effectiveMaxDate)) {
-      onDateChange(effectiveMaxDate);
-    } else {
-      onDateChange(newDate);
-    }
+    onDateChange(clampDate(newDate));
   };
 
   // Format time for input
@@ -99,16 +92,13 @@ export function DateTimePicker({
     !isAfter(date, effectiveMaxDate);
 
   // Get user's timezone as UTC offset
-  const getTimezoneOffset = () => {
-    const offsetMinutes = new Date().getTimezoneOffset();
-    const offsetHours = Math.abs(Math.floor(offsetMinutes / 60));
-    const offsetMins = Math.abs(offsetMinutes % 60);
-    const sign = offsetMinutes <= 0 ? "+" : "-";
-    return offsetMins > 0
-      ? `UTC${sign}${offsetHours}:${String(offsetMins).padStart(2, "0")}`
-      : `UTC${sign}${offsetHours}`;
-  };
-  const userTimezone = getTimezoneOffset();
+  const userTimezone = React.useMemo(() => {
+    const offset = new Date().getTimezoneOffset();
+    const sign = offset <= 0 ? "+" : "-";
+    const hours = Math.abs(Math.floor(offset / 60));
+    const mins = Math.abs(offset % 60);
+    return `UTC${sign}${hours}${mins ? `:${String(mins).padStart(2, "0")}` : ""}`;
+  }, []);
 
   return (
     <div className={cn("flex flex-col gap-2", className)}>
