@@ -1,8 +1,9 @@
 import SecretForm from "@/components/ui/SecretForm";
 import FileShareForm from "@/components/ui/FileShareForm";
-import { Shield, Clock, RefreshCw, Key, Users, UserPlus, FileCode, Code } from "lucide-react";
+import { Shield, Clock, RefreshCw, Key, Users, UserPlus, FileCode, Code, FileText, File } from "lucide-react";
 import FAQSection from "../components/ui/FAQSection";
 import Link from "next/link";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export const metadata = {
   title: "SnapPwd - Share Secrets Securely",
@@ -47,13 +48,24 @@ export default function Home() {
             encryption. Your secrets never leave your browser unencrypted.
           </p>
           <div className="bg-card p-8 rounded-xl shadow-lg border border-border max-w-6xl mx-auto">
-            <SecretForm />
-            <div className="mt-8 pt-8 border-t border-border">
-              <h2 className="text-2xl font-bold mb-6 text-center text-foreground">
-                Or Share a File
-              </h2>
-              <FileShareForm />
-            </div>
+            <Tabs defaultValue="text" className="w-full">
+              <TabsList className="grid w-full max-w-md mx-auto grid-cols-2 mb-8">
+                <TabsTrigger value="text" className="text-base">
+                  <FileText className="mr-2 h-4 w-4" />
+                  Text / Password
+                </TabsTrigger>
+                <TabsTrigger value="file" className="text-base">
+                  <File className="mr-2 h-4 w-4" />
+                  File Share
+                </TabsTrigger>
+              </TabsList>
+              <TabsContent value="text" className="mt-0">
+                <SecretForm />
+              </TabsContent>
+              <TabsContent value="file" className="mt-0">
+                <FileShareForm />
+              </TabsContent>
+            </Tabs>
           </div>
         </div>
       </section>
