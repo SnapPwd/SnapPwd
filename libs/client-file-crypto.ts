@@ -21,7 +21,7 @@ export async function encryptFile(
   const keyData = base58Decode(key);
   const cryptoKey = await window.crypto.subtle.importKey(
     "raw",
-    keyData.buffer.slice(keyData.byteOffset, keyData.byteOffset + keyData.byteLength),
+    keyData.buffer.slice(keyData.byteOffset, keyData.byteOffset + keyData.byteLength) as ArrayBuffer,
     { name: "AES-GCM" },
     false,
     ["encrypt"]
@@ -35,10 +35,10 @@ export async function encryptFile(
   const encryptedData = await window.crypto.subtle.encrypt(
     {
       name: "AES-GCM",
-      iv,
+      iv: iv as unknown as BufferSource,
     },
     cryptoKey,
-    arrayBuffer
+    arrayBuffer as unknown as BufferSource
   );
 
   return { iv, encryptedData: encryptedData as ArrayBuffer };
@@ -64,7 +64,7 @@ export async function decryptFile(
   const keyData = base58Decode(key);
   const cryptoKey = await window.crypto.subtle.importKey(
     "raw",
-    keyData.buffer.slice(keyData.byteOffset, keyData.byteOffset + keyData.byteLength),
+    keyData.buffer.slice(keyData.byteOffset, keyData.byteOffset + keyData.byteLength) as ArrayBuffer,
     { name: "AES-GCM" },
     false,
     ["decrypt"]
@@ -73,10 +73,10 @@ export async function decryptFile(
   const decryptedData = await window.crypto.subtle.decrypt(
     {
       name: "AES-GCM",
-      iv,
+      iv: iv as unknown as BufferSource,
     },
     cryptoKey,
-    encryptedData
+    encryptedData as unknown as BufferSource
   );
 
   // Create a Blob from the decrypted data
