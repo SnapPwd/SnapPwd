@@ -20,7 +20,7 @@ export async function POST(request: Request) {
 
     return NextResponse.json({ success: true });
   } catch (error) {
-    console.error(`Error in /api/delete-file for fileId ${fileId || 'unknown'}:`, error);
+    console.error("Error in /api/delete-file for fileId %s:", fileId || "unknown", error);
     return NextResponse.json(
       { error: "Internal server error" },
       { status: 500 }
