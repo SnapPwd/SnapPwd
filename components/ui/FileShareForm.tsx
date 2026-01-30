@@ -49,7 +49,7 @@ export default function FileShareForm() {
       }
 
       // Convert IV to Base64 for transport
-      const ivBase64 = btoa(String.fromCharCode(...iv));
+      const ivBase64 = Buffer.from(iv).toString('base64');
 
       const fileMetadata: FileMetadata = {
         originalFilename: selectedFile.name,
