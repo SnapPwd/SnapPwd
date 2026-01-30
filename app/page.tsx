@@ -1,4 +1,5 @@
 import SecretForm from "@/components/ui/SecretForm";
+import FileShareForm from "@/components/ui/FileShareForm";
 import { Shield, Clock, RefreshCw, Key, Users, UserPlus, FileCode, Code } from "lucide-react";
 import FAQSection from "../components/ui/FAQSection";
 import Link from "next/link";
@@ -47,6 +48,12 @@ export default function Home() {
           </p>
           <div className="bg-card p-8 rounded-xl shadow-lg border border-border max-w-6xl mx-auto">
             <SecretForm />
+            <div className="mt-8 pt-8 border-t border-border">
+              <h2 className="text-2xl font-bold mb-6 text-center text-foreground">
+                Or Share a File
+              </h2>
+              <FileShareForm />
+            </div>
           </div>
         </div>
       </section>
