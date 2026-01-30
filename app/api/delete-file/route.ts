@@ -2,8 +2,11 @@ import { NextResponse } from "next/server";
 import { deleteSecret } from "@/libs/snappwd"; // Re-use deleteSecret which calls redis.del
 
 export async function POST(request: Request) {
+  let fileId: string | undefined;
+  
   try {
-    const { fileId } = await request.json();
+    const body = await request.json();
+    fileId = body.fileId;
 
     if (!fileId) {
       return NextResponse.json(
@@ -17,7 +20,7 @@ export async function POST(request: Request) {
 
     return NextResponse.json({ success: true });
   } catch (error) {
-    console.error(`Error in /api/delete-file for fileId ${fileId}:`, error);
+    console.error(`Error in /api/delete-file for fileId ${fileId || 'unknown'}:`, error);
     return NextResponse.json(
       { error: "Internal server error" },
       { status: 500 }

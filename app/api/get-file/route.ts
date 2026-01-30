@@ -30,7 +30,7 @@ export async function GET(request: Request) {
       encryptedData: base64EncryptedData,
     });
   } catch (error) {
-    console.error(`Error in /api/get-file for fileId ${fileId}:`, error);
+    console.error("Error in /api/get-file for fileId %s:", fileId, error);
     return NextResponse.json(
       { error: "Internal server error" },
       { status: 500 }

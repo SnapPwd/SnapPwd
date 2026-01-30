@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation"; // Added useRouter
+import { Buffer } from "buffer";
 import { decryptFile } from "@/libs/client-file-crypto";
 import { FileMetadata } from "@/libs/snappwd";
 import { Button } from "@/components/ui/button";

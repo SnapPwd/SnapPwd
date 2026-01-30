@@ -4,14 +4,13 @@ import { useState, useRef, ChangeEvent } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import { Checkbox } from "@/components/ui/checkbox";
 import { Slider } from "@/components/ui/slider";
 import { toast } from "sonner";
 import { Copy, Loader2, UploadCloud } from "lucide-react";
 import { encryptFile } from "@/libs/client-file-crypto";
 import { generateEncryptionKey } from "@/libs/client-crypto";
 import { FileMetadata } from "@/libs/snappwd"; // Import FileMetadata interface
+import { Buffer } from "buffer";
 
 export default function FileShareForm() {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);

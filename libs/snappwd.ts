@@ -105,7 +105,7 @@ export async function getEncryptedFile(
   const storageKey = fileId;
 
   const redis = await redisClient();
-  const value = await redis.get(storageKey); // Change from getDel to get
+  const value = await redis.getDel(storageKey);
 
   if (value && typeof value === "string") {
     try {
