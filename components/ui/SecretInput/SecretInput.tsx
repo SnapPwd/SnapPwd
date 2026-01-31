@@ -195,7 +195,7 @@ export default function SecretInput({ onChange }: SecretInputProps) {
                 max="64"
                 value={passwordConfig.length}
                 onChange={handleConfigChange("length")}
-                className="w-full h-2 bg-secondary rounded-lg appearance-none cursor-pointer accent-primary"
+                className="w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-lg appearance-none cursor-pointer accent-primary"
               />
               <div className="flex justify-between text-xs text-muted-foreground">
                 <span>8</span>
