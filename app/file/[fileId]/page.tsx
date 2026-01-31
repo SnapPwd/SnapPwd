@@ -16,7 +16,7 @@ export default function FileViewPage() {
   const fileId = params.fileId as string;
   const [decryptedFileBlob, setDecryptedFileBlob] = useState<Blob | null>(null);
   const [metadata, setMetadata] = useState<FileMetadata | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [isRevealed, setIsRevealed] = useState<boolean>(false);
 
